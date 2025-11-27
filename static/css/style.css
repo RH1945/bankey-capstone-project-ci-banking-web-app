@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&family=Google+Sans+Code:wght@300&display=swap');
+
+.biz-udpmincho-regular {
+  font-family: "BIZ UDPMincho", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.google-sans-code {
+  font-family: "Google Sans Code", monospace;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+:root {
+  --primary-font: BIZ UDPMincho, sans-serif;
+  --secondary-font: Google Sans Code, sans-serif;
+  --primary-text-color: #ffeeee;
+  --primary-background-color: #18191e;
+  --secondary-text-color: #373737;
+  --primary-color: ;
+  --accent-color: ;
+  --success-color: ;
+  --danger-color: ;
+  --light-background: #1f2023;
+  --border-color: ;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --success-bg: #d4edda;
+  --success-text: #155724;
+  --warning-bg: #fff3cd;
+  --warning-text: #856404;
+  --white: #ffffff;
+  --black: #000000;
+  --transition: all 0.3s ease;
+}
+
+
+/* Buttons */
+.btn {
+  font-weight: 500;
+  transition: var(--transition);
+  border-radius: 0.375rem;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.btn-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+
+/* index styles */
+
+.debit-button{
+
+}
+
+.welcome-banner{
+
+}
+
+.offer-container{
+
+}
+
+/*Account styles*/
+
+.trans-container {
+
+}
+
+.side-panel {
+
+}
+
+.side-panel > .content {
+
+}
