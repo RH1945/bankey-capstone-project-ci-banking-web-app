@@ -2,10 +2,6 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User, BankeyAccount, Card, Transaction
 
-from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .models import User, BankeyAccount, Card, Transaction
-
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):

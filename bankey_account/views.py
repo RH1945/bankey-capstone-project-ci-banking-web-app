@@ -8,10 +8,17 @@ def make_transaction(request):
         form = TransactionForm(request.POST)
         if form.is_valid():
             transaction = form.save(commit=False)
-            transaction.sender = request.user  # 👈 logged-in user
+            transaction.sender = request.user
             transaction.save()
             return redirect("dashboard")
     else:
         form = TransactionForm()
 
     return render(request, "transaction.html", {"form": form})
+
+
+def trans_history(request):
+    if request.method == "PULL":
+        return render(request, "history.html")
+    else:
+        return redirect("account.html")
