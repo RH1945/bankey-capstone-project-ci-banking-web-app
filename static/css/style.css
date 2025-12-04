@@ -40,11 +40,13 @@
 
 
 /*Base styles*/
-.nav-shape-color {
-    background-color: var(--nav-background);
-    color: var(--nav-gradient);
-    clip-path: polygon(0 15%, 35% 10%, 65% 10%, 100% 15%, 100% 0, 0 0);
-}
+
+/*.nav-shape-color {*/
+/*    background-color: var(--nav-background);*/
+/*    color: var(--nav-gradient);*/
+/*    clip-path: polygon(0 15%, 35% 10%, 65% 10%, 100% 15%, 100% 0, 0 0);*/
+/*}*/
+
 
 
 /* Buttons */

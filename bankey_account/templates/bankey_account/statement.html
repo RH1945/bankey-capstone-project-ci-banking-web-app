@@ -1,0 +1,27 @@
+{% extends 'account.html' %}
+{% block content %}
+<container>
+    <div class="statement">
+        <div class="transaction">
+            <table>
+                <tr>
+                    <th>Reference</th>
+                    <th>Amount</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Date</th>
+                </tr>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.reference }}</td>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.sender }}</td>
+                    <td>{{ transaction.receiver }}</td>
+                    <td>{{ transaction.timestamp }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</container>
+{% endblock %}

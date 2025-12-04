@@ -57,6 +57,8 @@ class BankeyAccount(models.Model):
 
     class Meta:
         ordering = ["created_on"]
+        verbose_name = "Account"
+        verbose_name_plural = "Accounts"
 
 
 class Card(models.Model):
@@ -94,12 +96,15 @@ class Card(models.Model):
 
     class Meta:
         ordering = ["created_on"]
+        verbose_name = "Card"
+        verbose_name_plural = "Cards"
 
 
 class Transaction(models.Model):
     """
     Creates an instance of Transaction related to :model:`BankeyAccount`
     """
+    reference = models.CharField(max_length=24, blank=True)
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="sent_transactions")
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                  related_name="received_transactions")
@@ -111,6 +116,8 @@ class Transaction(models.Model):
 
     class Meta:
         ordering = ["timestamp"]
+        verbose_name = "Transaction"
+        verbose_name_plural = "Transactions"
 
     def clean(self):
         if self.amount <= 0:

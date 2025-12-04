@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
 urlpatterns = [
-    path('bankey_account/', include('bankey_account.urls'), name='bankey_account'),
+    path("", include("dashboard.urls"), name="dashboard-urls"),
+    path("allauth", include("allauth.urls")),
     path('admin/', admin.site.urls),
-    path('summernote/', include('django_summernote.urls')),
-    path('', include('dashboard.urls'), name='dashboard-urls'),
+    path("account/", include("bankey_account.urls"), name="bankey_account-urls"),
 ]

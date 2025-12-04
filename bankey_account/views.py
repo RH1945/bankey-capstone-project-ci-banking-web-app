@@ -1,24 +1,20 @@
-from django.shortcuts import render, redirect
-from .forms import TransactionForm
+from django.shortcuts import render
+from .models import Transaction
+
 
 # Create your views here.
 
-def make_transaction(request):
-    if request.method == "POST":
-        form = TransactionForm(request.POST)
-        if form.is_valid():
-            transaction = form.save(commit=False)
-            transaction.sender = request.user
-            transaction.save()
-            return redirect("dashboard")
-    else:
-        form = TransactionForm()
 
-    return render(request, "transaction.html", {"form": form})
+def account_view(request):
+    return render(request, "bankey_account/account.html")
+
+def statement(request):
+    return render(request, "bankey_account/statement.html")
+
+def transaction(request):
+    transactions = Transaction.objects.all().order_by("-date")
+    return render(request, "bankey_account/statement.html", {"transactions": transactions})
 
 
-def trans_history(request):
-    if request.method == "PULL":
-        return render(request, "history.html")
-    else:
-        return redirect("account.html")
+# make logout view
+
