@@ -1,9 +1,11 @@
-{% extends 'account.html' %}
-{% block content %}
-<container>
-    <div class="statement">
-        <div class="transaction">
-            <table>
+{% extends "bankey_account/account.html" %}
+
+{% block account_content %}
+
+<div class="statement">
+    <div class="transaction">
+        <table>
+            <thead>
                 <tr>
                     <th>Reference</th>
                     <th>Amount</th>
@@ -11,7 +13,9 @@
                     <th>To</th>
                     <th>Date</th>
                 </tr>
-                {% for transaction in transactions %}
+            </thead>
+            <tbody id="statement-body">
+                {% for transaction in page_obj %}
                 <tr>
                     <td>{{ transaction.reference }}</td>
                     <td>{{ transaction.amount }}</td>
@@ -20,8 +24,15 @@
                     <td>{{ transaction.timestamp }}</td>
                 </tr>
                 {% endfor %}
-            </table>
-        </div>
+            </tbody>
+        </table>
+
+        <button id="load-more" data-card="{{ card.card_number }}">
+            Load more
+        </button>
     </div>
-</container>
+</div>
+
+<script src="{% static 'js/statement.js' %}"></script>
+
 {% endblock %}

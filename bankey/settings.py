@@ -13,9 +13,7 @@ from pathlib import Path
 import os
 import sys
 import dj_database_url
-import cloudinary
 import cloudinary.api
-
 if os.path.isfile('env.py'):
     import env
     import environ
@@ -31,7 +29,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
                  '.herokuapp.com',
@@ -104,24 +102,21 @@ WSGI_APPLICATION = 'bankey.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 #
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
-    "default": dj_database_url.parse(
-        os.environ.get("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True,
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
-if 'test' in sys.argv:
-    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+#
+# DATABASES = {
+#     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"),
+#     )
+# }
+#
+# if 'test' in sys.argv:
+#     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
 
 CSRF_TRUSTED_ORIGINS = [
@@ -172,7 +167,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 cloudinary.config(
-    cloud_name = dj_database_url.parse(os.environ.get('CLOUDINARY_URL')),
-    api_key = dj_database_url.parse(os.environ.get('CLOUDINARY_URL')),
-    api_secret = dj_database_url.parse(os.environ.get('CLOUDINARY_URL')),
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
 )

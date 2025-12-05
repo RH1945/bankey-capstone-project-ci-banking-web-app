@@ -1,11 +1,11 @@
-from django.urls import path, include
-from django.contrib import admin
+from django.urls import path
 from . import views
 
 app_name = "bankey_account"
 
 urlpatterns = [
-    path("", include("views.account_view")),
-    path("admin/", admin.site.urls),
-    path("statement/", include("vies.statement.urls")),
+    path("", views.account_view, name="account"),
+    path("card/create/", views.card_create_view, name="card_create"),
+    path("statement/<str:card_number>/", views.statement_view, name="statement"),
+    path("transaction/<str:card_number>/", views.transaction_create_view, name="transaction"),
 ]
