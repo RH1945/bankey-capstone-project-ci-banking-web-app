@@ -40,7 +40,8 @@
 <body>
 
 <!-- Navigation -->
-<nav>
+<nav class="custom-navbar">
+
     <a href="{% url 'dashboard:dashboard' %}">Home</a>
     {% if user.is_authenticated %}
         <a href="{% url 'bankey_account:account' %}">My Account</a>

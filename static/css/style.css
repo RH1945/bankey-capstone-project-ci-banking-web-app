@@ -39,16 +39,6 @@
 }
 
 
-/*Base styles*/
-
-/*.nav-shape-color {*/
-/*    background-color: var(--nav-background);*/
-/*    color: var(--nav-gradient);*/
-/*    clip-path: polygon(0 15%, 35% 10%, 65% 10%, 100% 15%, 100% 0, 0 0);*/
-/*}*/
-
-
-
 /* Buttons */
 .btn {
     font-weight: 500;
@@ -81,6 +71,33 @@
     border-color: var(--danger-color);
 }
 
+/*Base styles*/
+.custom-navbar {
+    background-color: var(--nav-gradient);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    align-content: space-between;
+    align-items: center;
+    padding: 10px 10%;
+}
+a {
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.footer {
+    font-family: var(--secondary-font);
+    color: var(--secondary-text-color);
+    align-content: space-evenly;
+}
+h2 {
+    font-family: var(--primary-font);
+}
+p {
+    font-family: var(--secondary-font);
+}
+
 
 /* index styles */
 
@@ -88,12 +105,39 @@
 
 }
 
-.welcome-banner {
+.dashboard-image-container{
 
 }
 
-.offer-container {
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr);
 
+}
+
+.dashboard-text-space{
+
+}
+
+.dashboard-title{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: start;
+    font-family: var(--primary-font);
+    font-size: 140px;
+    -webkit-text-stroke: 1.5px navajowhite;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(var(--nav-gradient), var(--nav-gradient));
+    background-position: -1000px 0;
+    animation: background-fade-in 4s linear infinite;
+}
+@keyframes background-fade-in {
+    100% {
+        background-position: 0 0;
+    }
 }
 
 /*Account styles*/
@@ -102,10 +146,14 @@
 
 }
 
-.side-panel {
+.account-panel {
+    border-radius: 20%;
+    height: 20rem;
+    align-content: space-evenly;
+    background-color: var(--nav-gradient);
 
 }
 
-.side-panel > .content {
+.account-panel > .panel-content {
 
 }
