@@ -1,31 +1,40 @@
 {% extends "base.html" %}
-{% block content %}
-<body>
-<section class="dashboard-container">
-    <div class="row">
-        <div class="col">
-            <button class="debit-button" id="debit-button">
+{% load static %}
 
+{% block content %}
+
+<section class="dashboard-container">
+    <div class="hero-grid">
+        <div class="hero-card">
+            <button class="debit-button">
+                Open an account today and receive amazing benefits
+                <p>Join our {{ card_count }} clients and start your journey!</p>
             </button>
         </div>
-        <div class="col">
+
+        <div class="hero-copy">
             <h1 class="dashboard-title">Bankey</h1>
-            <p></p>
+            <h2>Open up a world of easy finance.</h2>
+            <p>
+                With a Bankey account you can forget about the complexity
+                of traditional banking and just focus on your real, practical needs.
+                For business and for personal use we have a variety of
+                <a href="#offers-section">offers</a> tailored for you.
+            </p>
         </div>
 
     </div>
-    <div class="dashboard-image-container">
-    </div>
-    <div class="dashboard-text-space">
 
-    </div>
-    <div class="dashboard-image-container">
+    <div class="offers-strip" id="offers-section">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti eos impedit ipsum quas! A, adipisci
+            aperiam architecto asperiores blanditiis consequatur corporis dicta dolor, eos, maiores mollitia neque nobis
+            obcaecati quia?</p>
     </div>
 
-    <div class="dashboard-text-space" >
+    <div class="hero-image">
+        <img src="{% static 'images/' %}" alt="">
     </div>
 
 </section>
 
-</body>
 {% endblock %}

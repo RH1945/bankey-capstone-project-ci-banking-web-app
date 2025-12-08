@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
+from bankey_account.models import Card
 
 
 def dashboard(request):
-    return render(request, "dashboard/index.html")
+    card_count = Card.objects.count()
+    return render(request, "dashboard/index.html", {
+        "card_count": card_count
+    })
 
 
 def login_view(request):

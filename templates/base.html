@@ -1,16 +1,14 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 
 <head>
-    {% load static %}
     <title>Bankey | Online Banking</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description"
-          content="A banking app that offers strong returns and financial safety for all it's clients. With every
-          account opened you grant us the privilege of safeguarding and improving your life as a stakeholder.">
+          content="A banking app that offers strong returns and financial safety for all its clients. With every account opened you grant us the privilege of safeguarding and improving your life as a stakeholder.">
+
 
     <!--    Icons-->
     <link rel="icon" type="image/png" href="{% static 'images/favicon-96x96.png' %}" sizes="96x96"/>
@@ -37,28 +35,30 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
-<body>
+<body class="vh-100">
 
 <!-- Navigation -->
 <nav class="custom-navbar">
+    <img class="logo" src="{% static 'images/bankey-logo.png' %}" alt="Bankey Logo"/>
+    <ul>
+        <li><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'bankey_account:account' %}">My Account</a></li>
+        <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'dashboard:login' %}">Login</a></li>
+        <li><a href="{% url 'dashboard:signup' %}">Sign Up</a></li>
+        {% endif %}
+    </ul>
 
-    <a href="{% url 'dashboard:dashboard' %}">Home</a>
-    {% if user.is_authenticated %}
-        <a href="{% url 'bankey_account:account' %}">My Account</a>
-        <a href="{% url 'dashboard:logout' %}">Logout</a>
-    {% else %}
-        <a href="{% url 'dashboard:login' %}">Login</a>
-        <a href="{% url 'dashboard:signup' %}">Sign Up</a>
-    {% endif %}
 </nav>
-
 
 
 {% block content %}
 <!-- Content Goes here -->
 {% endblock %}
 
-<footer class="footer mt-auto py-3 bg-dark">
+<footer class="footer mt-auto py-3 bg-light">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -79,7 +79,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
-<!--{% block extras %}-->
-<!--{% endblock %}-->
+{% block extras %}
+{% endblock %}
 </body>
 </html>

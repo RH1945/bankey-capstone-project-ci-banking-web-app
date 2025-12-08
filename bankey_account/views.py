@@ -82,3 +82,12 @@ def transaction_create_view(request, card_number):
         "bankey_account/transaction.html",
         {"form": form, "card": card},
     )
+
+def card_count_view(request):
+    cards = Card.objects.filter(account__user=request.user)
+    card_count = cards.count()
+
+    return render(request, "bankey_account/account.html", {
+        "cards": cards,
+        "card_count": card_count
+    })
