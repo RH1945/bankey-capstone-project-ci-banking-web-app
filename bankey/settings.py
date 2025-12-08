@@ -22,7 +22,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = "django-insecure-CHANGE-ME"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 SITE_ID = 1
 AUTH_USER_MODEL = "bankey_account.User"
 

@@ -1,18 +1,16 @@
 {% extends "bankey_account/account.html" %}
 
 {% block account_content %}
+<div class="account-panel">
+    <h2>Create Your Account</h2>
 
-<div class="form-panel">
-    <h2>Create Your Card</h2>
-
-    <form method="post">
+    <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
 
         <button type="submit" class="btn btn-primary">
-            Create Card
+            Continue
         </button>
     </form>
 </div>
-
 {% endblock %}

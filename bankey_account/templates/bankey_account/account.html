@@ -3,31 +3,91 @@
 {% block content %}
 <div class="account-layout">
 
+    <!-- SIDE MENU -->
     <aside class="account-menu">
+        <h3>My Account</h3>
+
         <a href="{% url 'bankey_account:account' %}">Cards</a>
-        <div class="cards-container">
-            <h2>Your Cards</h2>
-            {% for card in cards %}
+
+        <a href="{% url 'bankey_account:card_create' %}" class="plus-btn">
+            New Card +
+        </a>
+
+        {% if account %}
+            <hr>
+            <p><strong>Account Type:</strong> {{ account.get_acc_type_display }}</p>
+        {% endif %}
+
+        <hr>
+
+        <h4>Your Cards</h4>
+
+        {% for card in cards %}
             <div class="card-box">
-                <p><strong>Number:</strong> {{ card.card_number }}</p>
-                <p><strong>Type:</strong> {{ card.card_type }}</p>
-                <p><strong>Expires:</strong> {{ card.expiration_date }}</p>
+                <p>{{ card.card_number }}</p>
+                <p>{{ card.get_card_type_display }}</p>
 
                 <a href="{% url 'bankey_account:statement' card.card_number %}">
-                    View Statement
+                    Statement
                 </a>
 
                 <a href="{% url 'bankey_account:transaction' card.card_number %}">
-                    New Transaction
+                    Transfer
                 </a>
             </div>
-            {% endfor %}
-        </div>
-        <a href="{% url 'bankey_account:card_create' %}" class="plus-btn">+</a>
+        {% empty %}
+            <p>You have no cards yet.</p>
+        {% endfor %}
     </aside>
 
+    <!-- MAIN CONTENT (DINÁMICO) -->
     <section class="account-content">
-        {% block account_content %}{% endblock %}
+        {% block account_content %}
+
+        <!-- CONTENIDO DEFAULT CUANDO NO ESTÁS EN card_create -->
+        <h1 class="section-title">Your Cards</h1>
+
+        <div class="cards-grid">
+            {% for card in cards %}
+                <div class="bank-card">
+                    <div class="card-glass"></div>
+
+                    <div class="card-top">
+                        <span class="card-type">
+                            {% if card.card_type == 0 %}
+                                DEBIT
+                            {% else %}
+                                CREDIT
+                            {% endif %}
+                        </span>
+
+                        <div class="card-chip"></div>
+                    </div>
+
+                    <div class="card-number">
+                        {{ card.card_number|slice:":4" }}
+                        {{ card.card_number|slice:"4:8" }}
+                        {{ card.card_number|slice:"8:12" }}
+                        {{ card.card_number|slice:"12:16" }}
+                    </div>
+
+                    <div class="card-footer">
+                        <div>
+                            <small>EXPIRES</small>
+                            <span>{{ card.expiration_date|date:"m/y" }}</span>
+                        </div>
+
+                        <div class="card-owner">
+                            {{ card.account.user.full_name|upper }}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="empty-msg">You have no cards yet.</p>
+            {% endfor %}
+        </div>
+
+        {% endblock %}
     </section>
 
 </div>

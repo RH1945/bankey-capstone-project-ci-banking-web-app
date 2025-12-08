@@ -1,10 +1,9 @@
 from datetime import date
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
-from .utils import generate_account_number, generate_card_number
+from .utils import generate_account_number, generate_card_number, generate_expiration_date
 from django.conf import settings
 from django.db import models
-
 
 # Create your models here.
 
@@ -70,9 +69,9 @@ class Card(models.Model):
 
     account = models.ForeignKey(BankeyAccount, on_delete=models.CASCADE)
     card_balance = models.DecimalField(max_digits=24, decimal_places=2, default=0)
-    expiration_date = models.DateField()  # creation date + 3 years
+    expiration_date = models.DateField(default=generate_expiration_date)
     card_number = models.CharField(max_length=16, unique=True, default=generate_card_number)
-    card_type = models.IntegerField()
+    card_type = models.IntegerField(choices=PERSONAL_CARD_TYPE)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def is_expired(self):
@@ -82,10 +81,9 @@ class Card(models.Model):
         return f"{self.account.user.full_name} | {self.card_number}"
 
     def clean(self):
-        """
-        Enforce card type rules based on account type.
-        Called automatically when using ModelForms or manually via .full_clean().
-        """
+        if not self.account_id:
+            return
+
         if self.account.acc_type == 0:  # Personal
             valid = dict(self.PERSONAL_CARD_TYPE).keys()
         else:  # Business
