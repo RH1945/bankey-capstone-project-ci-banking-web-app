@@ -81,6 +81,12 @@
     align-content: space-between;
     align-items: center;
     padding: 10px 10%;
+    display: flex;
+}
+.custom-navbar ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 10px 15px
 }
 a {
     text-decoration: none;

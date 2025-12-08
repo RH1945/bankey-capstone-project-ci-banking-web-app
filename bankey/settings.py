@@ -24,7 +24,7 @@ DEBUG = False
 SITE_ID = 1
 AUTH_USER_MODEL = "bankey_account.User"
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1',]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com',]
 
 
 # Application definition
@@ -101,8 +101,9 @@ WSGI_APPLICATION = "bankey.wsgi.application"
 #     }
 # }
 
+
 DATABASES = {
-    "default": dj_database_url.parse('postgresql://neondb_owner:npg_p2AjXGkqh3TW@ep-steep-hall-agbpjujh.c-2.eu-central-1.aws.neon.tech/storm_trick_skier_620591')
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 
