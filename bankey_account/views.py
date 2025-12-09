@@ -107,17 +107,12 @@ def statement_view(request, card_number):
     })
 
 
-# CREATE TRANSACTION
 @login_required
 def transaction_create_view(request):
-    """Unified transaction page: AJAX transaction with JSON response + modal."""
     cards = Card.objects.filter(account__user=request.user)
 
     if request.method == "POST":
         form = TransactionForm(request.POST, user=request.user)
-
-        # AJAX request?
-        is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
 
         if form.is_valid():
             tx = form.save(commit=False)
@@ -125,57 +120,57 @@ def transaction_create_view(request):
             sender_card = form.cleaned_data["card"]
             amount = form.cleaned_data["amount"]
             receiver_user = form.cleaned_data["receiver"]
+            reference = form.cleaned_data.get("reference", "")
 
-            # VALIDATIONS
+            # --- VALIDATIONS ---
             if amount <= 0:
-                if is_ajax:
-                    return JsonResponse({"success": False, "error": "Amount must be > 0"})
-                messages.error(request, "Amount must be greater than zero.")
-                return redirect("bankey_account:transaction")
+                return JsonResponse({"success": False, "error": "Amount must be positive."})
 
             if sender_card.card_balance < amount:
-                if is_ajax:
-                    return JsonResponse({"success": False, "error": "Insufficient funds"})
-                messages.error(request, "Insufficient balance.")
-                return redirect("bankey_account:transaction")
+                return JsonResponse({"success": False, "error": "Insufficient funds."})
 
-            # APPLY BALANCE LOGIC
+            # --- UPDATE SENDER BALANCE ---
             sender_card.card_balance -= amount
             sender_card.save()
+            sender_card.account.update_balance()
 
+            # --- UPDATE RECEIVER BALANCE ---
             receiver_card = Card.objects.filter(account__user=receiver_user).first()
             if receiver_card:
                 receiver_card.card_balance += amount
                 receiver_card.save()
                 receiver_card.account.update_balance()
 
-            sender_card.account.update_balance()
-
-            # SAVE TRANSACTION
+            # --- SAVE TRANSACTION ---
             tx.sender = request.user
+            tx.reference = reference
             tx.save()
 
-            # IF AJAX → return JSON receipt (for your modal)
-            if is_ajax:
+            # --- AJAX RESPONSE ---
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
                 return JsonResponse({
                     "success": True,
                     "card": sender_card.card_number,
                     "receiver": f"{receiver_user.first_name} {receiver_user.last_name}",
                     "amount": float(amount),
-                    "date": tx.timestamp.strftime("%Y-%m-%d %H:%M")
+                    "reference": reference,
+                    "date": tx.timestamp.strftime("%Y-%m-%d %H:%M"),
                 })
 
-            # NON-AJAX FALLBACK → redirect
+            # fallback for normal POST (just in case)
             messages.success(request, "Transaction completed successfully!")
             return redirect("bankey_account:account")
 
         else:
+            # Form invalid
             if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-                return JsonResponse({"success": False, "error": str(form.errors)})
+                return JsonResponse({"success": False, "error": form.errors.as_text()})
 
-    else:
-        form = TransactionForm(user=request.user)
+            messages.error(request, "Invalid transaction.")
+            return redirect("bankey_account:transaction")
 
+    # GET request
+    form = TransactionForm(user=request.user)
     return render(request, "bankey_account/transaction.html", {
         "form": form,
         "cards": cards

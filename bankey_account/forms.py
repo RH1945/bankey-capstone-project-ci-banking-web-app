@@ -5,23 +5,25 @@ from .models import Transaction, BankeyAccount, Card
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ["card", "receiver", "amount"]
+        fields = ["reference", "card", "receiver", "amount"]
         labels = {
-            "card": "From card",
+            "reference": "Reference",
+            "card": "Sending from",
             "receiver": "Sending to",
             "amount": "Amount",
         }
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop("user")
+        user = kwargs.pop("user")  # sender injected by the view
         super().__init__(*args, **kwargs)
 
+        # Limit cards to the logged-in user's cards
         self.fields["card"].queryset = Card.objects.filter(account__user=user)
-        self.sender = user
+        self.sender = user  # saved for validation
 
     def clean_amount(self):
-        amount = self.cleaned_data.get("amount")
-        if amount is not None and amount <= 0:
+        amount = self.cleaned_data["amount"]
+        if amount <= 0:
             raise forms.ValidationError("Amount must be positive.")
         return amount
 
@@ -32,7 +34,7 @@ class TransactionForm(forms.ModelForm):
         receiver = cleaned.get("receiver")
         amount = cleaned.get("amount")
 
-        if not card or not amount or receiver is None:
+        if not card or not amount:
             return cleaned
 
         if receiver == self.sender:
@@ -40,7 +42,7 @@ class TransactionForm(forms.ModelForm):
 
         if card.card_balance < amount:
             raise forms.ValidationError(
-                f"Insufficient funds. Your card balance is {card.card_balance}."
+                f"Insufficient funds — card balance is {card.card_balance}"
             )
 
         return cleaned
