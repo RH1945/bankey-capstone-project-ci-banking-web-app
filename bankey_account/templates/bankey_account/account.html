@@ -5,65 +5,83 @@
 
     <!-- SIDE MENU -->
     <aside class="account-menu">
-        <h3>My Account</h3>
+        <h3 class="account-title">My Account</h3>
+
+        {% if account %}
+            <p class="account-type-label">Account type</p>
+            <p class="account-type-value">{{ account.get_acc_type_display }}</p>
+        {% endif %}
 
         <nav class="account-nav">
-            <a href="{% url 'bankey_account:account' %}">Cards</a>
-
-            <a href="{% url 'bankey_account:card_create' %}" class="plus-btn">
-                New Card +
+            <a href="{% url 'bankey_account:account' %}"
+               class="account-nav-link">
+                My Cards
             </a>
 
-            {% if account %}
-            <hr>
-            <p><strong>Account Type:</strong> {{ account.get_acc_type_display }}</p>
-            {% endif %}
-            <hr>
-        </nav>
+            {% if primary_card %}
+                <a href="{% url 'bankey_account:transaction' primary_card.card_number %}"
+                   class="account-nav-link">
+                    Transactions
+                </a>
 
+                <a href="{% url 'bankey_account:statement' primary_card.card_number %}"
+                   class="account-nav-link">
+                    Statement
+                </a>
+            {% endif %}
+
+            <a href="{% url 'bankey_account:card_create' %}"
+               class="account-nav-link account-nav-link--primary">
+                New Card +
+            </a>
+        </nav>
     </aside>
 
     <!-- MAIN CONTENT -->
     <section class="account-content">
+        {% block account_content %}
 
         <h1 class="section-title">Your Cards</h1>
 
-        <div class="cards-grid account-cards-column">
-
+        <div class="cards-grid">
             {% for card in cards %}
-            <div class="bank-card">
-                <div class="card-glass"></div>
-                <div class="card-shine"></div>
+                <div class="bank-card">
+                    <div class="card-glass"></div>
+                    <div class="card-shine"></div>
 
-                <div class="card-top">
-                    <span class="card-type">
-                        {% if card.card_type == 0 %}DEBIT{% else %}CREDIT{% endif %}
-                    </span>
-                    <div class="card-chip"></div>
-                </div>
-
-                <div class="card-number">
-                    {{ card.card_number|slice:":4" }}
-                    {{ card.card_number|slice:"4:8" }}
-                    {{ card.card_number|slice:"8:12" }}
-                    {{ card.card_number|slice:"12:16" }}
-                </div>
-
-                <div class="card-footer">
-                    <div class="card-exp">
-                        <small>EXPIRES</small>
-                        <span>{{ card.expiration_date|date:"m/y" }}</span>
+                    <div class="card-top">
+                        <span class="card-type">
+                            {% if card.card_type == 0 %}DEBIT{% else %}CREDIT{% endif %}
+                        </span>
+                        <div class="card-chip"></div>
                     </div>
 
-                    <div class="card-owner">
-                        {{ card.account.user.full_name|upper }}
+                    <div class="card-number">
+                        {{ card.card_number|slice:":4" }}
+                        {{ card.card_number|slice:"4:8" }}
+                        {{ card.card_number|slice:"8:12" }}
+                        {{ card.card_number|slice:"12:16" }}
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="card-exp">
+                            <small>EXPIRES</small>
+                            <span>{{ card.expiration_date|date:"m/y" }}</span>
+                        </div>
+
+                        <div class="card-owner">
+                            {{ card.account.user.full_name|upper }}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% empty %}
+                <p class="empty-msg">
+                    You have no cards yet. Create one to get started.
+                </p>
             {% endfor %}
-
         </div>
 
+        {% endblock %}
     </section>
 
 </div>

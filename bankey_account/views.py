@@ -7,24 +7,24 @@ from .utils import generate_expiration_date
 from datetime import date
 from django.http import HttpResponse
 from django.template.loader import get_template
-import weasyprint
+# import weasyprint
 
 
-@login_required
-def statement_pdf_view(request, card_number):
-    card = get_object_or_404(Card, card_number=card_number)
-    transactions = Transaction.objects.filter(sender=card.account.user)
-
-    html = get_template("bankey_account/statement_pdf.html").render({
-        "card": card,
-        "transactions": transactions
-    })
-
-    response = HttpResponse(content_type="application/pdf")
-    response["Content-Disposition"] = "filename=statement.pdf"
-
-    weasyprint.HTML(string=html).write_pdf(response)
-    return response
+# @login_required
+# def statement_pdf_view(request, card_number):
+#     card = get_object_or_404(Card, card_number=card_number)
+#     transactions = Transaction.objects.filter(sender=card.account.user)
+#
+#     html = get_template("bankey_account/statement_pdf.html").render({
+#         "card": card,
+#         "transactions": transactions
+#     })
+#
+#     response = HttpResponse(content_type="application/pdf")
+#     response["Content-Disposition"] = "filename=statement.pdf"
+#
+#     # weasyprint.HTML(string=html).write_pdf(response)
+#     return response
 
 
 @login_required
@@ -35,10 +35,12 @@ def account_view(request):
         return redirect("bankey_account:account_create")
 
     cards = Card.objects.filter(account=account)
+    primary_card = cards.first()
 
     return render(request, "bankey_account/account.html", {
         "account": account,
-        "cards": cards
+        "cards": cards,
+        "primary_card": primary_card,
     })
 
 
@@ -90,6 +92,9 @@ def card_create_view(request):
 @login_required
 def statement_view(request, card_number):
     card = get_object_or_404(Card, card_number=card_number)
+    account = card.account
+    cards = Card.objects.filter(account=account)
+    primary_card = card
 
     transactions = Transaction.objects.filter(
         sender=card.account.user
@@ -101,13 +106,19 @@ def statement_view(request, card_number):
 
     return render(request, "bankey_account/statement.html", {
         "card": card,
-        "page_obj": page_obj
+        "page_obj": page_obj,
+        "account": account,
+        "cards": cards,
+        "primary_card": primary_card,
     })
 
 
 @login_required
 def transaction_create_view(request, card_number):
     card = get_object_or_404(Card, card_number=card_number)
+    account = card.account
+    cards = Card.objects.filter(account=account)
+    primary_card = card
 
     if request.method == "POST":
         form = TransactionForm(request.POST)
@@ -115,11 +126,14 @@ def transaction_create_view(request, card_number):
             tx = form.save(commit=False)
             tx.sender = request.user
             tx.save()
-            return redirect("bankey_account:statement", card_number=card.card_number)
+            return redirect("bankey_account:account")
     else:
         form = TransactionForm()
 
     return render(request, "bankey_account/transaction.html", {
         "form": form,
-        "card": card
+        "card": card,
+        "account": account,
+        "cards": cards,
+        "primary_card": primary_card,
     })
