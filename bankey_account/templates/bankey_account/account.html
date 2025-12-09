@@ -7,46 +7,28 @@
     <aside class="account-menu">
         <h3>My Account</h3>
 
-        <a href="{% url 'bankey_account:account' %}">Cards</a>
+        <nav class="account-nav">
+            <a href="{% url 'bankey_account:account' %}">Cards</a>
 
-        <a href="{% url 'bankey_account:card_create' %}" class="plus-btn">
-            New Card +
-        </a>
-
-        {% if account %}
-        <hr>
-        <p><strong>Account Type:</strong> {{ account.get_acc_type_display }}</p>
-        {% endif %}
-
-        <hr>
-
-        <h4>Your Cards</h4>
-
-        {% for card in cards %}
-        <div class="card-box">
-            <p>{{ card.card_number }}</p>
-            <p>{{ card.get_card_type_display }}</p>
-
-            <a href="{% url 'bankey_account:statement' card.card_number %}">
-                Statement
+            <a href="{% url 'bankey_account:card_create' %}" class="plus-btn">
+                New Card +
             </a>
 
-            <a href="{% url 'bankey_account:transaction' card.card_number %}">
-                Transfer
-            </a>
-        </div>
-        {% empty %}
-        <p>You have no cards yet.</p>
-        {% endfor %}
+            {% if account %}
+            <hr>
+            <p><strong>Account Type:</strong> {{ account.get_acc_type_display }}</p>
+            {% endif %}
+            <hr>
+        </nav>
+
     </aside>
 
     <!-- MAIN CONTENT -->
     <section class="account-content">
-        {% block account_content %}
 
         <h1 class="section-title">Your Cards</h1>
 
-        <div class="cards-grid">
+        <div class="cards-grid account-cards-column">
 
             {% for card in cards %}
             <div class="bank-card">
@@ -82,7 +64,6 @@
 
         </div>
 
-        {% endblock %}
     </section>
 
 </div>
