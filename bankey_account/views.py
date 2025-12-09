@@ -1,32 +1,15 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.core.paginator import Paginator
 from .models import Card, Transaction, BankeyAccount
 from .forms import TransactionForm, BankeyAccountForm, CardCreateForm
 from .utils import generate_expiration_date
-from datetime import date
-from django.http import HttpResponse
-from django.template.loader import get_template
-# import weasyprint
+from django.db.models import Q
 
 
-# @login_required
-# def statement_pdf_view(request, card_number):
-#     card = get_object_or_404(Card, card_number=card_number)
-#     transactions = Transaction.objects.filter(sender=card.account.user)
-#
-#     html = get_template("bankey_account/statement_pdf.html").render({
-#         "card": card,
-#         "transactions": transactions
-#     })
-#
-#     response = HttpResponse(content_type="application/pdf")
-#     response["Content-Disposition"] = "filename=statement.pdf"
-#
-#     # weasyprint.HTML(string=html).write_pdf(response)
-#     return response
-
-
+# ACCOUNT DASHBOARD
 @login_required
 def account_view(request):
     account = BankeyAccount.objects.filter(user=request.user).first()
@@ -35,7 +18,7 @@ def account_view(request):
         return redirect("bankey_account:account_create")
 
     cards = Card.objects.filter(account=account)
-    primary_card = cards.first()
+    primary_card = cards.first()  # Used for nav display
 
     return render(request, "bankey_account/account.html", {
         "account": account,
@@ -44,6 +27,7 @@ def account_view(request):
     })
 
 
+# CREATE BANK ACCOUNT
 @login_required
 def account_create_view(request):
     if BankeyAccount.objects.filter(user=request.user).exists():
@@ -62,6 +46,7 @@ def account_create_view(request):
     return render(request, "bankey_account/account_create.html", {"form": form})
 
 
+# CREATE CARD
 @login_required
 def card_create_view(request):
     account = BankeyAccount.objects.filter(user=request.user).first()
@@ -76,7 +61,15 @@ def card_create_view(request):
             card = form.save(commit=False)
             card.account = account
             card.expiration_date = generate_expiration_date()
+
+            # Initial balance so demo works nicely
+            card.card_balance = 200
             card.save()
+
+            # Update account total balance
+            account.update_balance()
+
+            messages.success(request, "New card created successfully!")
             return redirect("bankey_account:account")
 
     else:
@@ -89,6 +82,7 @@ def card_create_view(request):
     )
 
 
+# STATEMENT VIEW
 @login_required
 def statement_view(request, card_number):
     card = get_object_or_404(Card, card_number=card_number)
@@ -97,7 +91,7 @@ def statement_view(request, card_number):
     primary_card = card
 
     transactions = Transaction.objects.filter(
-        sender=card.account.user
+        Q(sender=card.account.user) | Q(receiver=card.account.user)
     ).order_by("-timestamp")
 
     paginator = Paginator(transactions, 25)
@@ -113,27 +107,76 @@ def statement_view(request, card_number):
     })
 
 
+# CREATE TRANSACTION
 @login_required
-def transaction_create_view(request, card_number):
-    card = get_object_or_404(Card, card_number=card_number)
-    account = card.account
-    cards = Card.objects.filter(account=account)
-    primary_card = card
+def transaction_create_view(request):
+    """Unified transaction page: AJAX transaction with JSON response + modal."""
+    cards = Card.objects.filter(account__user=request.user)
 
     if request.method == "POST":
-        form = TransactionForm(request.POST)
+        form = TransactionForm(request.POST, user=request.user)
+
+        # AJAX request?
+        is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
+
         if form.is_valid():
             tx = form.save(commit=False)
+
+            sender_card = form.cleaned_data["card"]
+            amount = form.cleaned_data["amount"]
+            receiver_user = form.cleaned_data["receiver"]
+
+            # VALIDATIONS
+            if amount <= 0:
+                if is_ajax:
+                    return JsonResponse({"success": False, "error": "Amount must be > 0"})
+                messages.error(request, "Amount must be greater than zero.")
+                return redirect("bankey_account:transaction")
+
+            if sender_card.card_balance < amount:
+                if is_ajax:
+                    return JsonResponse({"success": False, "error": "Insufficient funds"})
+                messages.error(request, "Insufficient balance.")
+                return redirect("bankey_account:transaction")
+
+            # APPLY BALANCE LOGIC
+            sender_card.card_balance -= amount
+            sender_card.save()
+
+            receiver_card = Card.objects.filter(account__user=receiver_user).first()
+            if receiver_card:
+                receiver_card.card_balance += amount
+                receiver_card.save()
+                receiver_card.account.update_balance()
+
+            sender_card.account.update_balance()
+
+            # SAVE TRANSACTION
             tx.sender = request.user
             tx.save()
+
+            # IF AJAX → return JSON receipt (for your modal)
+            if is_ajax:
+                return JsonResponse({
+                    "success": True,
+                    "card": sender_card.card_number,
+                    "receiver": f"{receiver_user.first_name} {receiver_user.last_name}",
+                    "amount": float(amount),
+                    "date": tx.timestamp.strftime("%Y-%m-%d %H:%M")
+                })
+
+            # NON-AJAX FALLBACK → redirect
+            messages.success(request, "Transaction completed successfully!")
             return redirect("bankey_account:account")
+
+        else:
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                return JsonResponse({"success": False, "error": str(form.errors)})
+
     else:
-        form = TransactionForm()
+        form = TransactionForm(user=request.user)
 
     return render(request, "bankey_account/transaction.html", {
         "form": form,
-        "card": card,
-        "account": account,
-        "cards": cards,
-        "primary_card": primary_card,
+        "cards": cards
     })

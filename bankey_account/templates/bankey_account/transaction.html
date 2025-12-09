@@ -2,14 +2,81 @@
 
 {% block account_content %}
 
-<h1 class="section-title">New Transaction</h1>
+<h2>New Transaction</h2>
 
-<div class="account-form-card">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Send</button>
-    </form>
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label>Sending from</label>
+        {{ form.card }}
+    </div>
+
+    <div class="form-group">
+        <label>Sending to</label>
+        {{ form.receiver }}
+    </div>
+
+    <div class="form-group">
+        <label>Amount</label>
+        {{ form.amount }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send</button>
+</form>
+
+<script>
+    document.querySelector("form").addEventListener("submit", async e => {
+        e.preventDefault();
+        let form = e.target;
+        let data = new FormData(form);
+
+        const response = await fetch("", {
+            method: "POST",
+            body: data,
+            headers: {"X-Requested-With": "XMLHttpRequest"}
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            document.getElementById("r-card").textContent = result.card;
+            document.getElementById("r-receiver").textContent = result.receiver;
+            document.getElementById("r-amount").textContent = result.amount;
+            document.getElementById("r-date").textContent = result.date;
+
+            document.getElementById("receipt-modal").classList.remove("hidden");
+        }
+    });
+
+    document.getElementById("receipt-close").addEventListener("click", () => {
+        window.location.href = "/account/";
+    });
+
+    document.getElementById("receipt-ok").addEventListener("click", () => {
+        window.location.href = "/account/";
+    });
+</script>
+
+
+<div id="receipt-modal" class="tx-modal hidden">
+    <div class="tx-modal-card">
+        <span id="receipt-close">&times;</span>
+
+        <h3>Transaction Successful</h3>
+        <p><strong>From card:</strong> <span id="r-card"></span></p>
+        <p><strong>To:</strong> <span id="r-receiver"></span></p>
+        <p><strong>Amount:</strong> £<span id="r-amount"></span></p>
+        <p><strong>Date:</strong> <span id="r-date"></span></p>
+
+        <button id="receipt-ok" class="btn btn-primary">
+            Continue
+        </button>
+    </div>
 </div>
+
+{% if form.errors %}
+<pre>{{ form.errors }}</pre>
+{% endif %}
+
 
 {% endblock %}

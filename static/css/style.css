@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&family=Google+Sans+Code:wght@300&display=swap');
 
 /*  FONTS  */
+/*noinspection ALL*/
 .biz-udpmincho-regular {
     font-family: "BIZ UDPMincho", serif;
     font-weight: 400;
@@ -59,10 +60,12 @@ a {
     text-transform: uppercase;
 }
 
+/*noinspection ALL*/
 h2, h3, h4, h5 {
     font-family: var(--primary-font);
 }
 
+/*noinspection ALL*/
 p {
     font-family: var(--secondary-font);
 }
@@ -154,6 +157,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* Footer */
+/*noinspection ALL*/
 .footer {
     margin-top: auto;
     background: var(--nav-gradient);
@@ -272,6 +276,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* card style button */
+/*noinspection ALL*/
 .debit-button {
     width: 320px;
     height: 200px;
@@ -286,6 +291,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* Big BANKEY title */
+/*noinspection ALL*/
 .dashboard-title {
     font-family: var(--primary-font);
     font-size: 5rem;
@@ -301,13 +307,14 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 
 @keyframes bankey-glow {
     0% {
-        background-position: 0% 50%;
+        background-position: 0 50%;
     }
     100% {
         background-position: 100% 50%;
     }
 }
 
+/*noinspection ALL*/
 .offers-strip {
     width: 100%;
     padding: 3rem;
@@ -400,6 +407,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 
+/*noinspection ALL*/
 .bank-card {
     position: relative;
     width: 360px;
@@ -505,6 +513,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* Empty message */
+/*noinspection ALL*/
 .empty-msg {
     opacity: 0.5;
     font-family: var(--secondary-font);
@@ -525,6 +534,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     box-shadow: var(--shadow);
 }
 
+/*noinspection ALL*/
 .spreadsheet {
     width: 100%;
     border-collapse: collapse;
@@ -621,11 +631,13 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     z-index: 3;
 }
 
+/*noinspection ALL*/
 .cta-title {
     font-size: 1.6rem;
     font-family: var(--primary-font);
 }
 
+/*noinspection ALL*/
 .cta-text {
     margin-top: 1rem;
     font-family: var(--secondary-font);
@@ -654,7 +666,7 @@ main, .account-layout, .dashboard-container {
     box-shadow: var(--shadow);
     align-self: flex-start;
     position: sticky;
-    top: 90px; /* justo debajo del navbar */
+    top: 90px;
 }
 
 .account-title {
@@ -703,11 +715,61 @@ main, .account-layout, .dashboard-container {
     font-weight: 600;
 }
 
+.account-form-card input,
+.account-form-card select {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    border: none;
+    margin-top: 0.3rem;
+    font-size: 1rem;
+}
+
+
 /* Main content area */
 .account-content {
     max-width: 1100px;
     width: 100%;
     margin: 0 auto;
+}
+
+.card-balance {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    z-index: 3;
+}
+
+.card-balance span {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.95rem;
+}
+
+.django-messages {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/*noinspection ALL*/
+.msg {
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    margin: 0 auto 1rem;
+    width: 60%;
+    font-family: var(--secondary-font);
+}
+
+.msg.success {
+    background: var(--success-bg);
+    color: var(--success-text);
+}
+
+.msg.error {
+    background: var(--danger-color);
+    color: white;
 }
 
 

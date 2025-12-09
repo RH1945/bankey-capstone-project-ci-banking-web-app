@@ -43,7 +43,6 @@
     <div class="nav-left">
         <img class="logo" src="{% static 'images/bankey-logo.png' %}" alt="Bankey Logo"/>
     </div>
-
     <!-- Hamburger (mobile only) -->
     <button id="nav-toggle" class="hamburger">
         <span></span><span></span><span></span>
@@ -61,6 +60,13 @@
         {% endif %}
     </ul>
 </nav>
+{% if messages %}
+<div class="django-messages">
+    {% for message in messages %}
+    <div class="msg {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
 
 
 {% block content %}
@@ -80,7 +86,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 <script src="{% static 'js/statement.js' %}"></script>
-<script src="{% static 'js/script.js' %}"> </script>
+<script src="{% static 'js/script.js' %}"></script>
 
 {% block extras %}
 {% endblock %}

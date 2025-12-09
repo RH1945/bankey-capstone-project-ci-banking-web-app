@@ -54,6 +54,11 @@ class BankeyAccount(models.Model):
     def __str__(self):
         return f"{self.user.full_name} | {self.acc_type} | {self.acc_number}"
 
+    def update_balance(self):
+        total = sum(card.card_balance for card in self.card_set.all())
+        self.acc_balance = total
+        self.save(update_fields=["acc_balance"])
+
     class Meta:
         ordering = ["created_on"]
         verbose_name = "Account"
@@ -108,6 +113,8 @@ class Transaction(models.Model):
                                  related_name="received_transactions")
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     timestamp = models.DateTimeField(auto_now_add=True)
+    card = models.ForeignKey("Card", on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return f"{self.sender} → {self.receiver} | {self.amount}"
@@ -118,7 +125,11 @@ class Transaction(models.Model):
         verbose_name_plural = "Transactions"
 
     def clean(self):
-        if self.amount <= 0:
-            raise ValidationError("Amount must be positive.")
-        if self.sender == self.receiver:
-            raise ValidationError("Sender and receiver must be different.")
+        from django.core.exceptions import ValidationError
+
+        sender = getattr(self, "sender", None)
+        receiver = getattr(self, "receiver", None)
+
+        if sender is not None and receiver is not None:
+            if sender == receiver:
+                raise ValidationError("Sender and receiver cannot be the same.")
