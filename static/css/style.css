@@ -22,11 +22,12 @@
     --accent-color: #F5C542;
     --success-color: #2ECC71;
     --danger-color: #E74C3C;
-    --nav-gradient: linear-gradient(32deg,
-    rgba(155, 42, 66, 1) 0%,
-    rgba(87, 141, 199, 0.33) 34%,
-    rgba(142, 121, 204, 1) 57%,
-    rgba(237, 221, 83, 1) 100%
+    --nav-gradient: linear-gradient(
+            32deg,
+            rgba(155, 42, 66, 1) 0%,
+            rgba(87, 141, 199, 0.33) 34%,
+            rgba(142, 121, 204, 1) 57%,
+            rgba(237, 221, 83, 1) 100%
     );
     --nav-background: #9b2a42;
     --light-background: #1f2023;
@@ -41,7 +42,8 @@
     --transition: all 0.3s ease;
 }
 
-/*  BASE ELEMENTS  */
+/* GLOBAL */
+
 body {
     width: 100%;
     background-color: var(--primary-background-color);
@@ -61,7 +63,13 @@ p {
     font-family: var(--secondary-font);
 }
 
-/*  BUTTONS  */
+/* Global text color */
+body, p, h1, h2, h3, h4, h5, a, li, span {
+    color: var(--secondary-text-color);
+}
+
+/* Buttons */
+
 .btn {
     font-weight: bold;
     transition: var(--transition);
@@ -93,7 +101,8 @@ p {
     border-color: var(--danger-color);
 }
 
-/* NAVBAR  */
+/* Nav and Feet */
+
 .logo {
     height: 68px;
     width: 68px;
@@ -101,32 +110,137 @@ p {
 }
 
 .custom-navbar {
-    background-color: var(--nav-gradient);
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 60px;
+    background: var(--nav-gradient);
+    height: 70px;
     width: 100%;
-    padding: 10px;
+    padding: 0 6%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 20;
 }
 
-.custom-navbar ul li {
-    display: inline-block;
+/* Main nav list */
+.nav-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-links li {
     list-style: none;
-    margin: 10px 15px;
 }
 
-/*  FOOTER  */
+/* Glowing pill buttons */
+.pill-btn {
+    padding: 0.55rem 1.3rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--primary-text-color);
+    transition: 0.3s ease;
+}
+
+.pill-btn:hover {
+    background: var(--nav-gradient);
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+    color: #fff;
+}
+
+/* Footer */
 .footer {
+    background: var(--nav-gradient);
+    padding: 1.5rem 0;
+    text-align: center;
     font-family: var(--secondary-font);
     color: var(--secondary-text-color);
-    align-content: space-evenly;
 }
 
-/*  DASHBOARD LAYOUT  */
+/* Possibly unused helpers, but safe to keep */
+.footer-inner {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.footer-btn {
+    font-size: 0.9rem;
+    padding: 0.45rem 1.1rem;
+}
+
+/* Chicken tzatziki nav Hamburger */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 50;
+}
+
+.hamburger span {
+    height: 3px;
+    width: 100%;
+    background: white;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* Animation when open */
+.hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+
+/* MOBILE MENU (collapsible) */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(8px);
+        padding: 1rem 0;
+        transform: translateY(-200%);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.35s ease;
+        text-align: center;
+    }
+
+    .nav-links.nav-open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .nav-links li {
+        margin: 0.4rem 0;
+    }
+}
+
+/* Dashboard :) */
+
 .dashboard-container {
     width: 100%;
     display: flex;
@@ -152,7 +266,7 @@ p {
     position: relative;
 }
 
-/* Debit card button */
+/* card style button */
 .debit-button {
     width: 320px;
     height: 200px;
@@ -163,26 +277,29 @@ p {
     justify-content: space-between;
     text-align: left;
     font-family: var(--secondary-font);
-    background-color: var(--nav-gradient);
+    background: var(--nav-gradient); /* fixed to allow gradient */
 }
 
-/* Big title */
+/* Big BANKEY title */
 .dashboard-title {
     font-family: var(--primary-font);
     font-size: 5rem;
-    position: relative;
     margin-bottom: 1rem;
-    -webkit-text-stroke: 1.5px navajowhite;
-    color: transparent;
+    position: relative;
+    background: var(--nav-gradient);
     -webkit-background-clip: text;
-    background-image: linear-gradient(var(--nav-gradient), var(--nav-gradient));
-    background-position: -1000px 0;
-    animation: background-fade-in 4s linear infinite;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.25);
+    background-size: 300%;
+    animation: bankey-glow 6s linear infinite;
 }
 
-@keyframes background-fade-in {
+@keyframes bankey-glow {
+    0% {
+        background-position: 0% 50%;
+    }
     100% {
-        background-position: 0 0;
+        background-position: 100% 50%;
     }
 }
 
@@ -206,87 +323,8 @@ p {
     display: block;
 }
 
-/*  ACCOUNT  */
-/* ===== REALISTIC BANK CARDS ===== */
+/* AUTH (login / signup) */
 
-.cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 3rem;
-    margin-top: 3rem;
-}
-
-.bank-card {
-    position: relative;
-    height: 200px;
-    border-radius: 20px;
-    background: var(--nav-gradient);
-    padding: 1.5rem;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
-    transition: transform .4s ease, box-shadow .4s ease;
-}
-
-.bank-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .6);
-}
-
-/* Glass blur overlay */
-.card-glass {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, .05);
-    backdrop-filter: blur(14px);
-    z-index: 1;
-}
-
-/* Top row */
-.card-top {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.card-type {
-    font-size: .75rem;
-    letter-spacing: 2px;
-    opacity: .85;
-}
-
-.card-chip {
-    width: 50px;
-    height: 36px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, #d9d9d9, #9e9e9e);
-}
-
-/* Card number */
-.card-number {
-    position: relative;
-    z-index: 2;
-    margin-top: 3rem;
-    font-size: 1.3rem;
-    letter-spacing: 3px;
-    font-family: var(--secondary-font);
-}
-
-/* Footer */
-.card-footer {
-    position: absolute;
-    bottom: 1.2rem;
-    left: 1.5rem;
-    right: 1.5rem;
-    z-index: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-size: .8rem;
-}
-
-/*  AUTH PAGES  */
 .auth-container {
     min-height: calc(100vh - 120px);
     display: flex;
@@ -335,6 +373,9 @@ p {
     font-size: 0.9rem;
 }
 
+/* ACCOUNT CARDS */
+
+/* Cards layout */
 .cards-grid {
     display: flex;
     flex-wrap: wrap;
@@ -351,7 +392,7 @@ p {
     color: #111;
     font-family: var(--secondary-font);
     padding: 1.6rem;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
     overflow: hidden;
     transition: transform 0.5s ease, box-shadow 0.5s ease;
     transform-style: preserve-3d;
@@ -359,28 +400,29 @@ p {
 
 .bank-card:hover {
     transform: rotateY(10deg) rotateX(6deg) scale(1.04);
-    box-shadow: 0 35px 90px rgba(0,0,0,0.75);
+    box-shadow: 0 35px 90px rgba(0, 0, 0, 0.75);
 }
 
-/* Glass */
+/* Glassy card */
 .card-glass {
     position: absolute;
     inset: 0;
     backdrop-filter: blur(14px);
-    background: rgba(255,255,255,0.12);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 22px;
     z-index: 1;
 }
 
-/* Shine animation */
-.card-shine {
+/* Shiny */
+.card-shine,
+.cta-shine {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-        120deg,
-        rgba(255,255,255,0) 30%,
-        rgba(255,255,255,0.45) 50%,
-        rgba(255,255,255,0) 70%
+            120deg,
+            rgba(255, 255, 255, 0) 30%,
+            rgba(255, 255, 255, 0.45) 50%,
+            rgba(255, 255, 255, 0) 70%
     );
     transform: translateX(-100%);
     animation: shine 6s infinite;
@@ -439,7 +481,7 @@ p {
 
 .card-owner {
     font-weight: bold;
-    font-size: .75rem;
+    font-size: 0.75rem;
     max-width: 140px;
     text-align: right;
     letter-spacing: 1px;
@@ -451,7 +493,7 @@ p {
     font-family: var(--secondary-font);
 }
 
-/* ===== STATEMENT / SPREADSHEET ===== */
+/* STATEMENT / SPREADSHEET */
 
 .statement-toolbar {
     display: flex;
@@ -460,7 +502,7 @@ p {
 }
 
 .spreadsheet-wrapper {
-    background: rgba(255,255,255,0.04);
+    background: rgba(255, 255, 255, 0.04);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--shadow);
@@ -473,18 +515,18 @@ p {
 }
 
 .spreadsheet thead {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .spreadsheet th,
 .spreadsheet td {
     padding: 0.9rem 1.1rem;
     text-align: left;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .spreadsheet tr:hover {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.08);
     cursor: pointer;
 }
 
@@ -493,12 +535,12 @@ p {
     text-align: center;
 }
 
-/* ===== MODAL ===== */
+/* MODAL */
 
 .tx-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0, 0, 0, 0.75);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -514,7 +556,7 @@ p {
     padding: 2rem 2.5rem;
     border-radius: 18px;
     min-width: 340px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
     position: relative;
 }
 
@@ -524,4 +566,218 @@ p {
     right: 22px;
     font-size: 26px;
     cursor: pointer;
+}
+
+/* index card */
+
+.cta-card {
+    position: relative;
+    display: block;
+    width: 360px;
+    height: 220px;
+    background: linear-gradient(135deg, #7a6cff, #ffcc70, #ff5a78);
+    border-radius: 22px;
+    padding: 1.6rem;
+    text-decoration: none;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.cta-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+
+.cta-glass {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+    z-index: 1;
+}
+
+.cta-title,
+.cta-text {
+    position: relative;
+    z-index: 3;
+}
+
+.cta-title {
+    font-size: 1.6rem;
+    font-family: var(--primary-font);
+}
+
+.cta-text {
+    margin-top: 1rem;
+    font-family: var(--secondary-font);
+}
+
+/*Media queries*/
+
+/*  TABLETS & SMALL LAPTOPS (≤ 992px)  */
+@media (max-width: 992px) {
+
+    /* Dashboard container spacing */
+    .dashboard-container {
+        padding: 5rem 6%;
+        gap: 3rem;
+    }
+
+    /* Hero becomes a clean single column layout */
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .hero-card {
+        justify-content: center;
+    }
+
+    .debit-button {
+        margin: 0 auto;
+    }
+
+    .hero-copy {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    /* Title scales smoothly */
+    .dashboard-title {
+        font-size: 3.8rem;
+    }
+
+    /* Account cards center in grid */
+    .cards-grid {
+        justify-content: center;
+    }
+
+    .bank-card,
+    .cta-card {
+        width: 320px;
+        height: 200px;
+    }
+}
+
+/*  LARGE PHONES (≤ 768px)  */
+@media (max-width: 768px) {
+
+    /* Reduce outer spacing */
+    .dashboard-container {
+        padding: 4rem 5%;
+        gap: 2.5rem;
+    }
+
+    /* Title smaller & more compact stroke */
+    .dashboard-title {
+        font-size: 3rem;
+        -webkit-text-stroke: 1.2px rgba(255,255,255,0.25);
+    }
+
+    /* Debit CTA card */
+    .debit-button {
+        width: 260px;
+        height: 160px;
+        padding: 1.2rem;
+    }
+
+    .hero-copy p {
+        font-size: 0.95rem;
+        line-height: 1.55;
+    }
+
+    /* Account cards shrink and keep proportions */
+    .bank-card,
+    .cta-card {
+        width: 290px;
+        height: 180px;
+        padding: 1.2rem;
+    }
+
+    .card-number {
+        font-size: 1.15rem;
+        letter-spacing: 3px;
+    }
+
+    .card-footer {
+        font-size: 0.75rem;
+    }
+
+    /* Navbar elements compress */
+    .logo {
+        height: 58px;
+        width: 58px;
+    }
+
+    .pill-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* ---------- SMALL PHONES (≤ 480px) ---------- */
+@media (max-width: 480px) {
+
+    /* Balance spacing for tiny screens */
+    .dashboard-container {
+        padding: 3rem 4%;
+        gap: 2rem;
+    }
+
+    .dashboard-title {
+        font-size: 2.4rem;
+        -webkit-text-stroke: 1px rgba(255,255,255,0.25);
+    }
+
+    /* Hero CTA (debit card) */
+    .debit-button {
+        width: 220px;
+        height: 140px;
+        padding: 1rem;
+        font-size: 0.85rem;
+    }
+
+    .hero-copy p {
+        font-size: 0.9rem;
+    }
+
+    /* CTA card & account cards */
+    .bank-card,
+    .cta-card {
+        width: 250px;
+        height: 160px;
+        padding: 1rem;
+    }
+
+    .card-number {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+
+    .card-footer {
+        font-size: 0.7rem;
+    }
+
+    /* Navbar extremely small mode */
+    .logo {
+        height: 48px;
+        width: 48px;
+    }
+
+    .pill-btn {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.8rem;
+    }
+
+    /* Mobile menu tweaks */
+    .nav-links {
+        padding: 0.5rem 0;
+    }
+
+    .nav-links li {
+        margin: 0.35rem 0;
+    }
 }

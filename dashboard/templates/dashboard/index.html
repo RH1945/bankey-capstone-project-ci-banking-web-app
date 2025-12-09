@@ -6,11 +6,17 @@
 <section class="dashboard-container">
     <div class="hero-grid">
         <div class="hero-card">
-            <button class="debit-button">
-                Open an account today and receive amazing benefits
-                <p>Join our {{ card_count }} clients and start your journey!</p>
-            </button>
+            <a href="{% if user.is_authenticated %}{% url 'bankey_account:account' %}{% else %}{% url 'dashboard:signup' %}{% endif %}"
+               class="cta-card">
+
+                <div class="cta-glass"></div>
+                <div class="cta-shine"></div>
+
+                <h3 class="cta-title">Open an Account</h3>
+                <p class="cta-text">Join {{ card_count }} clients and start your journey</p>
+            </a>
         </div>
+
 
         <div class="hero-copy">
             <h1 class="dashboard-title">Bankey</h1>

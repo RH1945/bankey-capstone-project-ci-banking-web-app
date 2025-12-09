@@ -37,20 +37,29 @@
 </head>
 <body class="vh-100">
 
-<!-- Navigation -->
+<!-- Nav -->
+<!-- NAVBAR -->
 <nav class="custom-navbar">
-    <img class="logo" src="{% static 'images/bankey-logo.png' %}" alt="Bankey Logo"/>
-    <ul>
-        <li><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
+    <div class="nav-left">
+        <img class="logo" src="{% static 'images/bankey-logo.png' %}" alt="Bankey Logo"/>
+    </div>
+
+    <!-- Hamburger (mobile only) -->
+    <button id="nav-toggle" class="hamburger">
+        <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="nav-menu">
+        <li><a class="pill-btn" href="{% url 'dashboard:dashboard' %}">Home</a></li>
+
         {% if user.is_authenticated %}
-        <li><a href="{% url 'bankey_account:account' %}">My Account</a></li>
-        <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
+        <li><a class="pill-btn" href="{% url 'bankey_account:account' %}">My Account</a></li>
+        <li><a class="pill-btn" href="{% url 'dashboard:logout' %}">Logout</a></li>
         {% else %}
-        <li><a href="{% url 'dashboard:login' %}">Login</a></li>
-        <li><a href="{% url 'dashboard:signup' %}">Sign Up</a></li>
+        <li><a class="pill-btn" href="{% url 'dashboard:login' %}">Login</a></li>
+        <li><a class="pill-btn" href="{% url 'dashboard:signup' %}">Sign Up</a></li>
         {% endif %}
     </ul>
-
 </nav>
 
 
@@ -58,28 +67,20 @@
 <!-- Content Goes here -->
 {% endblock %}
 
-<footer class="footer mt-auto py-3 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <a href="https://www.linkedin.com/in/rafael-horwood-sanchez-291914224/">Linkedin</a>
-                <a href="https://github.com/RH1945">Github</a>
-            </div>
-
-            <div class="col">
-
-            </div>
-        </div>
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <a href="https://www.linkedin.com/in/rafael-horwood-sanchez-291914224/" class="pill-btn footer-btn">LinkedIn</a>
+        <a href="https://github.com/RH1945" class="pill-btn footer-btn">GitHub</a>
     </div>
 </footer>
-<!-- Footer -->
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 <script src="{% static 'js/statement.js' %}"></script>
-
+<script src="{% static 'js/script.js' %}"> </script>
 
 {% block extras %}
 {% endblock %}
