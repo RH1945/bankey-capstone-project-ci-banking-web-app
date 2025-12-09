@@ -2,37 +2,68 @@
 
 {% block account_content %}
 
-<div class="statement">
-    <div class="transaction">
-        <table>
-            <thead>
-                <tr>
-                    <th>Reference</th>
-                    <th>Amount</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody id="statement-body">
-                {% for transaction in page_obj %}
-                <tr>
-                    <td>{{ transaction.reference }}</td>
-                    <td>{{ transaction.amount }}</td>
-                    <td>{{ transaction.sender }}</td>
-                    <td>{{ transaction.receiver }}</td>
-                    <td>{{ transaction.timestamp }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<h1 class="section-title">Statement</h1>
 
+<div class="statement-toolbar">
+    <a href="{% url 'bankey_account:account' %}" class="btn btn-secondary">← Back</a>
+
+    <a href="{% url 'bankey_account:statement_pdf' card.card_number %}"
+       class="btn btn-primary" target="_blank">
+        Download PDF
+    </a>
+</div>
+
+<div class="spreadsheet-wrapper">
+    <table class="spreadsheet">
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody id="statement-body">
+        {% for tx in page_obj %}
+        <tr class="tx-row"
+            data-sender="{{ tx.sender }}"
+            data-receiver="{{ tx.receiver }}"
+            data-amount="{{ tx.amount }}"
+            data-reference="{{ tx.reference }}"
+            data-date="{{ tx.timestamp }}">
+            <td>{{ tx.reference }}</td>
+            <td>{{ tx.sender }}</td>
+            <td>{{ tx.receiver }}</td>
+            <td>{{ tx.amount }}</td>
+            <td>{{ tx.timestamp|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if page_obj.has_next %}
+    <div class="load-more-wrapper">
         <button id="load-more" data-card="{{ card.card_number }}">
-            Load more
+            Load More
         </button>
+    </div>
+    {% endif %}
+</div>
+
+
+<!-- TRANSACTION MODAL -->
+<div id="tx-modal" class="tx-modal hidden">
+    <div class="tx-modal-card">
+        <span id="tx-close">&times;</span>
+
+        <p><strong>Reference:</strong> <span id="m-ref"></span></p>
+        <p><strong>Sender:</strong> <span id="m-sender"></span></p>
+        <p><strong>Receiver:</strong> <span id="m-receiver"></span></p>
+        <p><strong>Amount:</strong> £<span id="m-amount"></span></p>
+        <p><strong>Date:</strong> <span id="m-date"></span></p>
     </div>
 </div>
 
-<script src="{% static 'js/statement.js' %}"></script>
 
 {% endblock %}

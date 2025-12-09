@@ -17,7 +17,7 @@
     --secondary-font: Google Sans Code, sans-serif;
     --primary-text-color: #ffeeee;
     --primary-background-color: #18191e;
-    --secondary-text-color: #373737;
+    --secondary-text-color: #dcdcdb;
     --primary-color: #264675;
     --accent-color: #F5C542;
     --success-color: #2ECC71;
@@ -53,7 +53,7 @@ a {
     text-transform: uppercase;
 }
 
-h2 {
+h2, h3, h4, h5 {
     font-family: var(--primary-font);
 }
 
@@ -63,7 +63,7 @@ p {
 
 /*  BUTTONS  */
 .btn {
-    font-weight: 500;
+    font-weight: bold;
     transition: var(--transition);
     border-radius: 0.375rem;
 }
@@ -286,19 +286,6 @@ p {
     font-size: .8rem;
 }
 
-.card-owner {
-    font-weight: bold;
-    font-size: .75rem;
-    max-width: 140px;
-    text-align: right;
-}
-
-/* Empty state */
-.empty-msg {
-    opacity: .5;
-}
-
-
 /*  AUTH PAGES  */
 .auth-container {
     min-height: calc(100vh - 120px);
@@ -346,4 +333,195 @@ p {
 .auth-footer {
     margin-top: 1.5rem;
     font-size: 0.9rem;
+}
+
+.cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.bank-card {
+    position: relative;
+    width: 360px;
+    height: 220px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #7a6cff, #ffcc70, #ff5a78);
+    color: #111;
+    font-family: var(--secondary-font);
+    padding: 1.6rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    transform-style: preserve-3d;
+}
+
+.bank-card:hover {
+    transform: rotateY(10deg) rotateX(6deg) scale(1.04);
+    box-shadow: 0 35px 90px rgba(0,0,0,0.75);
+}
+
+/* Glass */
+.card-glass {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(14px);
+    background: rgba(255,255,255,0.12);
+    border-radius: 22px;
+    z-index: 1;
+}
+
+/* Shine animation */
+.card-shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0) 30%,
+        rgba(255,255,255,0.45) 50%,
+        rgba(255,255,255,0) 70%
+    );
+    transform: translateX(-100%);
+    animation: shine 6s infinite;
+    z-index: 2;
+}
+
+@keyframes shine {
+    100% {
+        transform: translateX(120%);
+    }
+}
+
+/* Top row */
+.card-top {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-type {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.card-chip {
+    width: 48px;
+    height: 36px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #d6d6d6, #8a8a8a);
+}
+
+/* Number */
+.card-number {
+    position: relative;
+    z-index: 3;
+    margin-top: 3rem;
+    font-size: 1.45rem;
+    letter-spacing: 4px;
+}
+
+/* Footer */
+.card-footer {
+    position: absolute;
+    bottom: 1.4rem;
+    left: 1.6rem;
+    right: 1.6rem;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.card-owner {
+    font-weight: bold;
+    font-size: .75rem;
+    max-width: 140px;
+    text-align: right;
+    letter-spacing: 1px;
+}
+
+/* Empty message */
+.empty-msg {
+    opacity: 0.5;
+    font-family: var(--secondary-font);
+}
+
+/* ===== STATEMENT / SPREADSHEET ===== */
+
+.statement-toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.spreadsheet-wrapper {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.spreadsheet {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--secondary-font);
+}
+
+.spreadsheet thead {
+    background: rgba(255,255,255,0.1);
+}
+
+.spreadsheet th,
+.spreadsheet td {
+    padding: 0.9rem 1.1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.spreadsheet tr:hover {
+    background: rgba(255,255,255,0.08);
+    cursor: pointer;
+}
+
+.load-more-wrapper {
+    padding: 1rem;
+    text-align: center;
+}
+
+/* ===== MODAL ===== */
+
+.tx-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.tx-modal.hidden {
+    display: none;
+}
+
+.tx-modal-card {
+    background: linear-gradient(135deg, #1f2023, #2b2c30);
+    padding: 2rem 2.5rem;
+    border-radius: 18px;
+    min-width: 340px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    position: relative;
+}
+
+#tx-close {
+    position: absolute;
+    top: 16px;
+    right: 22px;
+    font-size: 26px;
+    cursor: pointer;
 }

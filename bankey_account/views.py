@@ -5,6 +5,26 @@ from .models import Card, Transaction, BankeyAccount
 from .forms import TransactionForm, BankeyAccountForm, CardCreateForm
 from .utils import generate_expiration_date
 from datetime import date
+from django.http import HttpResponse
+from django.template.loader import get_template
+import weasyprint
+
+
+@login_required
+def statement_pdf_view(request, card_number):
+    card = get_object_or_404(Card, card_number=card_number)
+    transactions = Transaction.objects.filter(sender=card.account.user)
+
+    html = get_template("bankey_account/statement_pdf.html").render({
+        "card": card,
+        "transactions": transactions
+    })
+
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = "filename=statement.pdf"
+
+    weasyprint.HTML(string=html).write_pdf(response)
+    return response
 
 
 @login_required
@@ -65,7 +85,6 @@ def card_create_view(request):
         "bankey_account/card_create.html",
         {"form": form}
     )
-
 
 
 @login_required

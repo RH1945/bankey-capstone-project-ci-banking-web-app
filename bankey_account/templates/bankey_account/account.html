@@ -14,8 +14,8 @@
         </a>
 
         {% if account %}
-            <hr>
-            <p><strong>Account Type:</strong> {{ account.get_acc_type_display }}</p>
+        <hr>
+        <p><strong>Account Type:</strong> {{ account.get_acc_type_display }}</p>
         {% endif %}
 
         <hr>
@@ -23,68 +23,63 @@
         <h4>Your Cards</h4>
 
         {% for card in cards %}
-            <div class="card-box">
-                <p>{{ card.card_number }}</p>
-                <p>{{ card.get_card_type_display }}</p>
+        <div class="card-box">
+            <p>{{ card.card_number }}</p>
+            <p>{{ card.get_card_type_display }}</p>
 
-                <a href="{% url 'bankey_account:statement' card.card_number %}">
-                    Statement
-                </a>
+            <a href="{% url 'bankey_account:statement' card.card_number %}">
+                Statement
+            </a>
 
-                <a href="{% url 'bankey_account:transaction' card.card_number %}">
-                    Transfer
-                </a>
-            </div>
+            <a href="{% url 'bankey_account:transaction' card.card_number %}">
+                Transfer
+            </a>
+        </div>
         {% empty %}
-            <p>You have no cards yet.</p>
+        <p>You have no cards yet.</p>
         {% endfor %}
     </aside>
 
-    <!-- MAIN CONTENT (DINÁMICO) -->
+    <!-- MAIN CONTENT -->
     <section class="account-content">
         {% block account_content %}
 
-        <!-- CONTENIDO DEFAULT CUANDO NO ESTÁS EN card_create -->
         <h1 class="section-title">Your Cards</h1>
 
         <div class="cards-grid">
+
             {% for card in cards %}
-                <div class="bank-card">
-                    <div class="card-glass"></div>
+            <div class="bank-card">
+                <div class="card-glass"></div>
+                <div class="card-shine"></div>
 
-                    <div class="card-top">
-                        <span class="card-type">
-                            {% if card.card_type == 0 %}
-                                DEBIT
-                            {% else %}
-                                CREDIT
-                            {% endif %}
-                        </span>
+                <div class="card-top">
+                    <span class="card-type">
+                        {% if card.card_type == 0 %}DEBIT{% else %}CREDIT{% endif %}
+                    </span>
+                    <div class="card-chip"></div>
+                </div>
 
-                        <div class="card-chip"></div>
+                <div class="card-number">
+                    {{ card.card_number|slice:":4" }}
+                    {{ card.card_number|slice:"4:8" }}
+                    {{ card.card_number|slice:"8:12" }}
+                    {{ card.card_number|slice:"12:16" }}
+                </div>
+
+                <div class="card-footer">
+                    <div class="card-exp">
+                        <small>EXPIRES</small>
+                        <span>{{ card.expiration_date|date:"m/y" }}</span>
                     </div>
 
-                    <div class="card-number">
-                        {{ card.card_number|slice:":4" }}
-                        {{ card.card_number|slice:"4:8" }}
-                        {{ card.card_number|slice:"8:12" }}
-                        {{ card.card_number|slice:"12:16" }}
-                    </div>
-
-                    <div class="card-footer">
-                        <div>
-                            <small>EXPIRES</small>
-                            <span>{{ card.expiration_date|date:"m/y" }}</span>
-                        </div>
-
-                        <div class="card-owner">
-                            {{ card.account.user.full_name|upper }}
-                        </div>
+                    <div class="card-owner">
+                        {{ card.account.user.full_name|upper }}
                     </div>
                 </div>
-            {% empty %}
-                <p class="empty-msg">You have no cards yet.</p>
+            </div>
             {% endfor %}
+
         </div>
 
         {% endblock %}
