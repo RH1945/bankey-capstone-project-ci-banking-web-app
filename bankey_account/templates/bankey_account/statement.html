@@ -3,11 +3,9 @@
 {% block account_content %}
 
 <h1 class="section-title">Statement</h1>
-
 <div class="statement-toolbar">
     <a href="{% url 'bankey_account:account' %}" class="btn btn-secondary">← Back</a>
 </div>
-
 <div class="spreadsheet-wrapper">
     <table class="spreadsheet">
         <thead>
@@ -21,28 +19,28 @@
         </thead>
         <tbody id="statement-body">
         {% for tx in page_obj %}
-            <tr class="tx-row"
-                data-sender="{{ tx.sender }}"
-                data-receiver="{{ tx.receiver }}"
-                data-amount="{{ tx.amount }}"
-                data-reference="{{ tx.reference }}"
-                data-date="{{ tx.timestamp }}">
-                <td>{{ tx.reference }}</td>
-                <td>{{ tx.sender }}</td>
-                <td>{{ tx.receiver }}</td>
-                <td>{{ tx.amount }}</td>
-                <td>{{ tx.timestamp|date:"Y-m-d H:i" }}</td>
-            </tr>
+        <tr class="tx-row {% if tx.sender == request.user %}tx-out{% else %}tx-in{% endif %}"
+            data-sender="{{ tx.sender }}"
+            data-receiver="{{ tx.receiver }}"
+            data-amount="{{ tx.amount }}"
+            data-reference="{{ tx.reference }}"
+            data-date="{{ tx.timestamp }}">
+            <td>{{ tx.reference }}</td>
+            <td>{{ tx.sender }}</td>
+            <td>{{ tx.receiver }}</td>
+            <td>{{ tx.amount }}</td>
+            <td>{{ tx.timestamp|date:"Y-m-d H:i" }}</td>
+        </tr>
         {% endfor %}
         </tbody>
     </table>
 
     {% if page_obj.has_next %}
-        <div class="load-more-wrapper">
-            <button id="load-more" data-card="{{ card.card_number }}">
-                Load More
-            </button>
-        </div>
+    <div class="load-more-wrapper">
+        <button id="load-more" data-card="{{ card.card_number }}">
+            Load More
+        </button>
+    </div>
     {% endif %}
 </div>
 

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-
+<!--Hero-->
 <section class="dashboard-container">
     <div class="hero-grid">
         <div class="hero-card">
@@ -25,22 +25,73 @@
                 With a Bankey account you can forget about the complexity
                 of traditional banking and just focus on your real, practical needs.
                 For business and for personal use we have a variety of
-                <a href="#offers-section">offers</a> tailored for you.
+                <a style="color: var(--primary-color);" href="#offers-section">offers</a> tailored for you.
             </p>
         </div>
 
     </div>
+</section>
 
+<!--Filler content-->
+<section class="dashboard-container">
     <div class="offers-strip" id="offers-section">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti eos impedit ipsum quas! A, adipisci
-            aperiam architecto asperiores blanditiis consequatur corporis dicta dolor, eos, maiores mollitia neque nobis
-            obcaecati quia?</p>
+        <h3>Everyday Banking — Simple, Human, Stress-Free</h3>
+        <p>Banking should feel like support, not surveillance. At Bankey, you won’t be trapped behind endless
+            authentication loops or automated dead ends. We designed an experience where your bank actually knows you,
+            respects your time, and keeps you safe without getting in your way. It’s financial freedom paired with real
+            protection — a place where you can focus on living, not fighting with your bank.</p>
     </div>
-
     <div class="hero-image">
-        <img src="{% static 'images/' %}" alt="">
+        <img src="{% static 'images/pexels-goumbik-296282.jpg' %}"
+             alt="Photo by Lukas: https://www.pexels.com/photo/person-hand-reaching-body-of-water-296282/">
     </div>
-
+    <div class="offers-strip">
+        <h3>Banking for Business — Built for Clarity and Control</h3>
+        <p>Whether you're a freelancer, a growing startup, or an established company, Bankey gives you the clarity,
+            tools, and autonomy to run your business without friction. No hidden steps, no confusing dashboards — just
+            straightforward account management, clean transaction tracking, and financial transparency you can rely on
+            to make smart decisions.</p>
+    </div>
+    <div class="hero-image">
+        <img src="{% static 'images/pexels-pixabay-416405.jpg' %}"
+             alt="Photo by Pixabay: https://www.pexels.com/photo/three-people-sitting-beside-table-416405/">
+    </div>
+    <div class="offers-strip">
+        <h3>Family Accounts — Designed for Shared Security and Ease</h3>
+        <p>Families need banking that adapts to real life. Bankey offers a smooth, unified experience for shared
+            expenses, allowances, and household budgeting. It empowers families to stay organized, stay secure, and stay
+            connected — all while keeping stress low and usability high.</p>
+    </div>
+    <div class="hero-image">
+        <img src="{% static 'images/pexels-yuliantopoitier-1231365.jpg' %}"
+             alt="Photo by Yulianto Poitier: https://www.pexels.com/photo/woman-and-three-children-playing-water-1231365/">
+    </div>
+    <div class="offers-strip">
+        <h3>Investor Accounts — Precision, Insight, and Stability</h3>
+        <p>For those building wealth and planning ahead, Bankey provides a reliable foundation. Investors gain clear
+            overviews, organized records, and a stable environment tailored for long-term planning. It’s banking that
+            supports strategy, stays out of your way, and gives you the confidence to grow at your own pace.</p>
+    </div>
+    <div class="hero-image">
+        <img src="{% static 'images/pexels-dvaughnbell-2068664.jpg' %}"
+             alt="Photo by D'Vaughn Bell: https://www.pexels.com/photo/silver-iphone-2068664/">
+    </div>
+    <div class="offers-strip">
+        <h3>Student Banking — Fast, Modern, and Supportive</h3>
+        <p>Students shouldn’t have to wrestle with outdated systems or overly strict barriers. Bankey offers clean,
+            intuitive banking that fits into a busy student life: easy access, straightforward management, and the
+            security you need without the stress you don’t. It’s the perfect beginner-friendly financial home for
+            building good habits and staying in control.</p>
+    </div>
+    <div class="hero-image">
+        <img src="{% static 'images/pexels-emily-ranquist-493228-1205651.jpg' %}"
+             alt="Photo by Emily Ranquist: https://www.pexels.com/photo/photography-of-people-graduating-1205651/">
+    </div>
+    <div class="offers-strip">
+        <h4><a href="{% if user.is_authenticated %}{% url 'bankey_account:account' %}{% else %}{% url 'dashboard:signup' %}{% endif %}" class="bottom-cta">So what are you waiting for? Join us now!</a></h4>
+    </div>
 </section>
 
 {% endblock %}
+
+
