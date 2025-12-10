@@ -88,7 +88,9 @@
              alt="Photo by Emily Ranquist: https://www.pexels.com/photo/photography-of-people-graduating-1205651/">
     </div>
     <div class="offers-strip">
-        <h4><a href="{% if user.is_authenticated %}{% url 'bankey_account:account' %}{% else %}{% url 'dashboard:signup' %}{% endif %}" class="bottom-cta">So what are you waiting for? Join us now!</a></h4>
+        <h4>
+            <a href="{% if user.is_authenticated %}{% url 'bankey_account:account' %}{% else %}{% url 'dashboard:signup' %}{% endif %}"
+               class="bottom-cta">So what are you waiting for? Join us now!</a></h4>
     </div>
 </section>
 
