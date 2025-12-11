@@ -133,4 +133,3 @@ class Transaction(models.Model):
         if sender is not None and receiver is not None:
             if sender == receiver:
                 raise ValidationError("Sender and receiver cannot be the same.")
-

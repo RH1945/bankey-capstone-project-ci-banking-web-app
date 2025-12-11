@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&family=Google+Sans+Code:wght@300&display=swap');
 
 /*  FONTS  */
-/*noinspection ALL*/
 .biz-udpmincho-regular {
     font-family: "BIZ UDPMincho", serif;
     font-weight: 400;
@@ -44,7 +43,6 @@
 }
 
 /* GLOBAL */
-
 body {
     width: 100%;
     background-color: var(--primary-background-color);
@@ -52,7 +50,6 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-
 }
 
 a {
@@ -60,23 +57,19 @@ a {
     text-transform: uppercase;
 }
 
-/*noinspection ALL*/
 h2, h3, h4, h5 {
     font-family: var(--primary-font);
 }
 
-/*noinspection ALL*/
 p {
     font-family: var(--secondary-font);
 }
 
-/* Global text color */
 body, p, h1, h2, h3, h4, h5, a, li, span {
     color: var(--secondary-text-color);
 }
 
 /* Buttons */
-
 .btn {
     font-weight: bold;
     transition: var(--transition);
@@ -109,7 +102,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* Nav and Feet */
-
 .logo {
     height: 68px;
     width: auto;
@@ -157,7 +149,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* Footer */
-/*noinspection ALL*/
 .footer {
     margin-top: auto;
     background: var(--nav-gradient);
@@ -167,7 +158,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     color: var(--secondary-text-color);
 }
 
-/* Possibly unused helpers, but safe to keep */
 .footer-inner {
     display: flex;
     justify-content: center;
@@ -214,8 +204,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     transform: rotate(-45deg) translate(6px, -6px);
 }
 
-
-/* MOBILE MENU (collapsible) */
+/* MOBILE MENU */
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
@@ -249,7 +238,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* Dashboard :) */
-
 .bottom-cta {
     color: var(--accent-color);
     text-decoration-line: overline underline;
@@ -284,7 +272,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* card style button */
-/*noinspection ALL*/
 .debit-button {
     width: 320px;
     height: 200px;
@@ -299,7 +286,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* Big BANKEY title */
-/*noinspection ALL*/
 .dashboard-title {
     font-family: var(--primary-font);
     font-size: 5rem;
@@ -322,7 +308,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     }
 }
 
-/*noinspection ALL*/
 .offers-strip {
     width: 100%;
     padding: 3rem;
@@ -344,7 +329,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* AUTH (login / signup) */
-
 .auth-container {
     /*min-height: calc(100vh - 120px);*/
     display: flex;
@@ -371,7 +355,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     border-radius: 16px;
     box-shadow: var(--shadow);
 }
-
 
 .auth-card h1 {
     margin-bottom: 0.5rem;
@@ -415,8 +398,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     justify-content: center;
 }
 
-
-/*noinspection ALL*/
 .bank-card {
     position: relative;
     width: 360px;
@@ -437,7 +418,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     box-shadow: 0 35px 90px rgba(0, 0, 0, 0.75);
 }
 
-/* Glassy card */
+/* Glassy card layer*/
 .card-glass {
     position: absolute;
     inset: 0;
@@ -447,7 +428,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     z-index: 1;
 }
 
-/* Shiny */
+/* Shiny card layer*/
 .card-shine,
 .cta-shine {
     position: absolute;
@@ -522,14 +503,12 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* Empty message */
-/*noinspection ALL*/
 .empty-msg {
     opacity: 0.5;
     font-family: var(--secondary-font);
 }
 
-/* STATEMENT / SPREADSHEET */
-
+/* STATEMENT */
 .statement-toolbar {
     display: flex;
     justify-content: space-between;
@@ -543,7 +522,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     box-shadow: var(--shadow);
 }
 
-/*noinspection ALL*/
 .spreadsheet {
     width: 100%;
     border-collapse: collapse;
@@ -572,7 +550,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 }
 
 /* MODAL */
-
 .tx-modal {
     position: fixed;
     inset: 0;
@@ -615,6 +592,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     font-weight: 600;
     background: rgba(46, 204, 113, 0.15);
 }
+
 .tx-deleted {
     color: #888;
     font-style: italic;
@@ -622,7 +600,6 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 
 
 /* index card */
-
 .cta-card {
     position: relative;
     display: block;
@@ -657,16 +634,14 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     z-index: 3;
 }
 
-/*noinspection ALL*/
 .cta-title {
     font-size: 1.6rem;
     font-family: var(--primary-font);
     color: var(--black);
 }
 
-/*noinspection ALL*/
 .cta-text {
-    margin-top: 1rem;
+    margin: .6rem 0 1rem 0;
     font-family: var(--secondary-font);
     color: var(--black);
 }
@@ -676,7 +651,6 @@ main, .account-layout, .dashboard-container {
 }
 
 /* ACCOUNT LAYOUT */
-
 .account-layout {
     display: grid;
     grid-template-columns: 260px minmax(0, 1fr);
@@ -753,7 +727,6 @@ main, .account-layout, .dashboard-container {
     font-size: 1rem;
 }
 
-
 /* Main content area */
 .account-content {
     max-width: 1100px;
@@ -781,7 +754,6 @@ main, .account-layout, .dashboard-container {
     margin-top: 1rem;
 }
 
-/*noinspection ALL*/
 .msg {
     padding: 0.8rem 1.2rem;
     border-radius: 8px;
@@ -791,6 +763,7 @@ main, .account-layout, .dashboard-container {
     font-weight: 500;
     animation: fadeSlideIn 0.4s ease forwards, fadeOut 0.4s ease 4s forwards;
 }
+
 @keyframes fadeSlideIn {
     0% {
         opacity: 0;
@@ -801,6 +774,7 @@ main, .account-layout, .dashboard-container {
         transform: translateY(0);
     }
 }
+
 @keyframes fadeOut {
     to {
         opacity: 0;
@@ -837,13 +811,11 @@ main, .account-layout, .dashboard-container {
 /*  TABLETS & SMALL LAPTOPS (≤ 992px)  */
 @media (max-width: 992px) {
 
-    /* Dashboard container spacing */
     .dashboard-container {
         padding: 5rem 6%;
         gap: 3rem;
     }
 
-    /* Hero becomes a clean single column layout */
     .hero-grid {
         grid-template-columns: 1fr;
         gap: 3rem;
@@ -863,12 +835,10 @@ main, .account-layout, .dashboard-container {
         margin-top: 1rem;
     }
 
-    /* Title scales smoothly */
     .dashboard-title {
         font-size: 3.8rem;
     }
 
-    /* Account cards center in grid */
     .cards-grid {
         justify-content: center;
     }
@@ -880,7 +850,7 @@ main, .account-layout, .dashboard-container {
     }
 }
 
-/* Delete icon overlay */
+/* Delete icon for cards */
 .card-delete-overlay {
     position: absolute;
     top: -1px;
@@ -902,7 +872,6 @@ main, .account-layout, .dashboard-container {
     transition: 0.2s ease;
 }
 
-/* Hover effect */
 .delete-icon-btn:hover {
     background: rgba(220, 0, 0, 0.85);
     color: white;
@@ -936,7 +905,6 @@ main, .account-layout, .dashboard-container {
         line-height: 1.55;
     }
 
-    /* Account cards shrink and keep proportions */
     .bank-card,
     .cta-card {
         width: 290px;
@@ -953,7 +921,6 @@ main, .account-layout, .dashboard-container {
         font-size: 0.75rem;
     }
 
-    /* Navbar elements compress */
     .logo {
         height: 68px;
         width: 68px;
@@ -968,7 +935,6 @@ main, .account-layout, .dashboard-container {
 /* ---------- SMALL PHONES (≤ 480px) ---------- */
 @media (max-width: 480px) {
 
-    /* Balance spacing for tiny screens */
     .dashboard-container {
         padding: 3rem 4%;
         gap: 2rem;
@@ -979,7 +945,6 @@ main, .account-layout, .dashboard-container {
         -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
     }
 
-    /* Hero CTA (debit card) */
     .debit-button {
         width: 220px;
         height: 140px;
@@ -991,7 +956,6 @@ main, .account-layout, .dashboard-container {
         font-size: 0.9rem;
     }
 
-    /* CTA card & account cards */
     .bank-card,
     .cta-card {
         width: 250px;
@@ -1000,12 +964,23 @@ main, .account-layout, .dashboard-container {
     }
 
     .card-number {
-        font-size: 1rem;
-        letter-spacing: 2px;
+        font-size: 0.95rem;
+        letter-spacing: 1.5px;
+        margin-top: 1.2rem;
+        text-align: center;
+    }
+
+    .card-owner {
+        font-size: 0.65rem;
+        text-align: center;
     }
 
     .card-footer {
         font-size: 0.7rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        bottom: 0.8rem;
     }
 
     /* MAIN ACCOUNT LAYOUT */
@@ -1027,10 +1002,10 @@ main, .account-layout, .dashboard-container {
     .account-nav a,
     .account-menu a {
         display: block;
-        padding: 0.4rem 0;
+        padding: 0.4rem 0.3rem;
+        font-size: 1rem;
     }
 
-    /* Center cards and stack vertically */
     .account-cards-column {
         display: flex;
         flex-direction: column;
@@ -1038,8 +1013,6 @@ main, .account-layout, .dashboard-container {
         gap: 3rem;
     }
 
-
-    /* Navbar extremely small mode */
     .logo {
         height: 48px;
         width: 48px;
@@ -1050,7 +1023,6 @@ main, .account-layout, .dashboard-container {
         font-size: 0.8rem;
     }
 
-    /* Mobile menu tweaks */
     .nav-links {
         padding: 0.5rem 0;
     }

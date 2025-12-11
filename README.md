@@ -35,13 +35,60 @@
 - [Credits](#credits)
 
 ---
+![]()
 
 # Overview
 
+Bankey is a blog disguised as a banking app where you can create your account, make cards and delete them,
+send and receive imaginary money, and check your statement. There are no special differences with the different cards,
+and the offers in the index page are sadly not met by this Bank. But regardless of the shortcomings in being a
+functioning e-Bank, Banky manages to be a good showcase of CRUD and django, in addition to the awesome animations
+and designs you can achieve with a bit of html and css.
+
+This idea is made up of:
+1 project
+2 apps
+1 css
+1 main script
+4 models
+10 views
+8 templates + 1 base (9)
+
+
 <details>
-<summary>How do I dropdown?</summary>
+<summary>Read more...</summary>
 <br>
-This is how you dropdown.
+I came into this project expecting the functionality of a bank app to be very similar to a blog, which was the aim 
+of the capstone, "make your own version of a blog". With a custom model, CRUD functionality and a using the
+Object Oriented paradigms. But I actually thought I would be able to add commissions and timed charges for interest and
+such things. I have to play with heroku and how it manages cron or other time managers. Maybe there is other
+libraries for setting up a regular payment, or a date to charge a cardholder if they owe money on their credit card.
+
+I really think it works fine for what it ended up being, but it's not something I'm happy with. Although
+the idea of the project is "banking", it would require a lot more knowledge about security, pipelines,
+and other aspects I currently ignore.
+
+In general, I had thought of making a banking app because it appeared to me that it was a more math-demanding subject
+for the capstone project. I like that. In the end, I didn't have time to add the functionality to charge transaction
+fees, interest rates or other common calculations that happen during the banking experience, but perhaps in the future.
+
+the timeline of the project basically was 3 weeks to get it to a more than "should have" level, but the couple of
+issues I encountered in the first two weeks rendered models and deployment a longer task than anticipated. I spent
+the first two weeks building most of the back end and the last week in designing and polishing what you end up
+seeing now. the styles and templates.
+
+Models were all custom, the User model was a bit more demanding given that the standard Django models don't have
+a date of birth, and I was a bit stubborn in having it be part of the (utils.py) account number function.
+The other problem I faced was databases, it seemed that my neon database was not set up properly somehow in settings.py,
+this made it impossible to have a deployed version with a global database. The settings were for some reason just not
+working in general, when trying to deploy in a local server the templates refused to connect, this was fixed by
+rebooting the settings file and just connecting the dependencies and apps again. Aside from that, small problems like
+styling and some bad pagination were fixed in the last couple of days.
+
+All in all, the project's MVP felt finished, and I am happy to submit after sharing the heroku site with some CS friends
+and my CI tutors and facilitators, having made improvements after hearing their comments. I hope to make many more, and
+better apps in future hackathons, expanding on this idea and related subjects :)
+
 </details>
 
 ![Overview Image Placeholder]()
@@ -53,22 +100,47 @@ This is how you dropdown.
 # UX Design
 
 <details>
-<summary>How do I dropdown?</summary>
+<summary>Dashboard wireframe vs Actual</summary>
 <br>
-This is how you dropdown.
+
+![wireframes index.png](static/readme/wireframes%20index.png)
+![fl index.png](static/readme/fl%20index.png)
+
 </details>
+<details>
+<summary>Cards wireframe vs Actual</summary>
+<br>
 
-![UX Image Placeholder]()
+![wireframes cards.png](static/readme/wireframes%20cards.png)
+![fl cards.png](static/readme/fl%20cards.png)
 
+</details><details>
+<summary>wireframe vs Actual</summary>
+<br>
 
+![]()
+![]()
+</details><details>
+<summary></summary>
+<br>
 
+![]()
+![]()
+</details>wireframe vs Actual<details>
+<summary></summary>
+<br>
+
+![]()
+![]()
+
+</details>
 
 ### Reasoning
 
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 My thought process for the templates was so:
 
@@ -94,38 +166,41 @@ So I made **transactions.html**.
 # User Stories
 
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 
 ---
 
 # Must Haves
+
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 
 
 ---
 
 # Should Haves
+
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 
 
 ---
 
 # Could Haves
+
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 
 
@@ -136,18 +211,19 @@ This is how you dropdown.
 ![Wireframe Placeholder]()
 
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 
 ---
 
 # ERD
+
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 
 ![ERD Placeholder]()
@@ -157,10 +233,11 @@ This is how you dropdown.
 ---
 
 # Colors
+
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 ![Colours Placeholder]()
 
@@ -169,10 +246,11 @@ This is how you dropdown.
 ---
 
 # Font
+
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 ![Font Placeholder]()
 
@@ -182,20 +260,22 @@ This is how you dropdown.
 ---
 
 # Key Features
+
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 
 
 ---
 
 # User Authentication & Management
+
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 ![Authentication Placeholder]()
 
@@ -227,11 +307,9 @@ This is how you dropdown.
 
 # Deployment
 
-
 ---
 
 # AI Implementation & Orchestration
-
 
 ![AI Diagram Placeholder]()
 
@@ -244,7 +322,6 @@ This is how you dropdown.
 
 ## Desktop Lighthouse Reports
 
-
 ![Desktop Lighthouse Report]()
 
 
@@ -253,7 +330,6 @@ This is how you dropdown.
 ---
 
 ## Mobile Lighthouse Reports
-
 
 ![Mobile Lighthouse Report]()
 
@@ -291,8 +367,6 @@ This is how you dropdown.
 
 ## JavaScript Validation
 
-
-
 markdown
 ![JS Validation Screenshot]()
 
@@ -303,28 +377,22 @@ markdown
 
 ## Manual Testing
 
-
-
 ---
 
 ## Automated Testing
 
 <details>
-<summary>How do I dropdown?</summary>
+<summary></summary>
 <br>
-This is how you dropdown.
+
 </details>
 
 ---
 
 # Future Enhancements
 
-  
-
-
 ---
 
 # Credits
-
 
 _This project is dedicated to my unfinished degree in Economics and Finance in Portugal._

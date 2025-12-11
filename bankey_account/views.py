@@ -123,7 +123,7 @@ def statement_view(request, card_number):
         "primary_card": primary_card,
     })
 
-
+# TRANSACTION VIEW
 @login_required
 def transaction_create_view(request):
     cards = Card.objects.filter(account__user=request.user)
@@ -192,6 +192,7 @@ def transaction_create_view(request):
         "cards": cards
     })
 
+# CARD DELETE VEIW
 @login_required
 def card_delete_view(request, card_id):
     card = get_object_or_404(Card, id=card_id, account__user=request.user)
