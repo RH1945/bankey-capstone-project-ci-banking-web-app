@@ -98,6 +98,23 @@ def statement_view(request, card_number):
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
 
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        data = {
+            "transactions": [
+                {
+                    "reference": tx.reference,
+                    "sender": str(tx.sender),
+                    "receiver": str(tx.receiver),
+                    "amount": float(tx.amount),
+                    "timestamp": tx.timestamp.strftime("%Y-%m-%d %H:%M"),
+                    "direction": "out" if tx.sender == request.user else "in",
+                }
+                for tx in page_obj
+            ],
+            "has_next": page_obj.has_next(),
+        }
+        return JsonResponse(data)
+
     return render(request, "bankey_account/statement.html", {
         "card": card,
         "page_obj": page_obj,
@@ -122,31 +139,30 @@ def transaction_create_view(request):
             receiver_user = form.cleaned_data["receiver"]
             reference = form.cleaned_data.get("reference", "")
 
-            # --- VALIDATIONS ---
             if amount <= 0:
                 return JsonResponse({"success": False, "error": "Amount must be positive."})
 
             if sender_card.card_balance < amount:
                 return JsonResponse({"success": False, "error": "Insufficient funds."})
 
-            # --- UPDATE SENDER BALANCE ---
+            # update balance for sending party
             sender_card.card_balance -= amount
             sender_card.save()
             sender_card.account.update_balance()
 
-            # --- UPDATE RECEIVER BALANCE ---
+            # update balance for receving
             receiver_card = Card.objects.filter(account__user=receiver_user).first()
             if receiver_card:
                 receiver_card.card_balance += amount
                 receiver_card.save()
                 receiver_card.account.update_balance()
 
-            # --- SAVE TRANSACTION ---
+            # save transaction
             tx.sender = request.user
             tx.reference = reference
             tx.save()
 
-            # --- AJAX RESPONSE ---
+            # ajax response
             if request.headers.get("X-Requested-With") == "XMLHttpRequest":
                 return JsonResponse({
                     "success": True,
@@ -175,3 +191,16 @@ def transaction_create_view(request):
         "form": form,
         "cards": cards
     })
+
+@login_required
+def card_delete_view(request, card_id):
+    card = get_object_or_404(Card, id=card_id, account__user=request.user)
+    # This view unlinks the card but keeps transactions, we also return a message to confirm card has been deleted
+    if request.method == "POST":
+        Transaction.objects.filter(card=card).update(card=None)
+        card.delete()
+        card.account.update_balance()
+        messages.success(request, "Card deleted successfully.")
+        return redirect("bankey_account:account")
+    return redirect("bankey_account:account")
+

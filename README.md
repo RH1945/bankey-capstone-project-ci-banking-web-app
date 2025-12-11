@@ -1,6 +1,4 @@
-In full stack web-development we use templates instead of
-
-# Bankey – Capstone Project
+# Bankey - Capstone Project
 
 *(Code Institute Full Stack Developer Programme)*
 
@@ -16,14 +14,11 @@ In full stack web-development we use templates instead of
 - [Could Haves](#could-haves)
 - [Wireframes](#wireframes)
 - [ERD](#erd)
-- [Colours](#colours)
+- [Colours](#colors)
 - [Font](#font)
 - [Key Features](#key-features)
 - [User Authentication & Management](#user-authentication--management)
-- [Gratitude Entry Management](#gratitude-entry-management)
-- [Mood Tracking System](#mood-tracking-system)
 - [Dashboard Overview](#dashboard-overview)
-- [Enhanced UX Features](#enhanced-ux-features)
 - [Data Management](#data-management)
 - [Deployment](#deployment)
 - [AI Implementation & Orchestration](#ai-implementation--orchestration)
@@ -43,30 +38,38 @@ In full stack web-development we use templates instead of
 
 # Overview
 
-:::{dropdown} Overview Content  
-:open:
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 
-```markdown
 ![Overview Image Placeholder]()
-```
 
-:::
+
 
 ---
 
 # UX Design
 
-:::{dropdown} UX Design Documentation  
-:open:
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 
-```markdown
 ![UX Image Placeholder]()
-```
 
-:::
+
+
 
 ### Reasoning
 
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 My thought process for the templates was so:
 
 I need to be able to display the "base" everywhere, this includes
@@ -80,7 +83,7 @@ I wanted a feel of ease and brevity for the sign-up and log-in, so I use a diffe
 *log_in.html** and **sign_up.html**.
 
 I took inspiration from my own (real) banking app and wanted to be able to show the customer's profile
-in a way that was easy to use, and that only showed the most important data/information for the user's convinience.
+in a way that was easy to use, and that only showed the most important data/information for the user's convenience.
 Hence, I need **account.html**.
 
 I also knew I needed a secure feel for the transactions, I wanted the look to help the user
@@ -90,190 +93,150 @@ So I made **transactions.html**.
 
 # User Stories
 
-:::{dropdown} User Stories  
-:open:
-
-:::
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 
 ---
 
 # Must Haves
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 
-:::{dropdown} Must Have Requirements  
-:open:
-
-:::
 
 ---
 
 # Should Haves
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 
-:::{dropdown} Should Have Requirements  
-:open:
-
-:::
 
 ---
 
 # Could Haves
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 
-:::{dropdown} Could Have Requirements  
-:open:
-
-:::
 
 ---
 
 # Wireframes
 
-:::{dropdown} Wireframes Collection  
-:open:
-
-```markdown
 ![Wireframe Placeholder]()
-```
 
-:::
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 
 ---
 
 # ERD
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 
-:::{dropdown} Entity Relationship Diagram  
-:open:
-
-```markdown
 ![ERD Placeholder]()
-```
 
-:::
+
 
 ---
 
-# Colours
-
-:::{dropdown} Colour Palette  
-:open:
-
-```markdown
+# Colors
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 ![Colours Placeholder]()
-```
 
-:::
+
 
 ---
 
 # Font
-
-:::{dropdown} Typography  
-:open:
-
-```markdown
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 ![Font Placeholder]()
-```
 
-:::
+
+
 
 ---
 
 # Key Features
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 
-:::{dropdown} Key Features List  
-:open:
-
-:::
 
 ---
 
 # User Authentication & Management
-
-:::{dropdown} Authentication System  
-:open:
-
-```markdown
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 ![Authentication Placeholder]()
-```
 
-:::
 
----
 
-# Gratitude Entry Management
 
-:::{dropdown} Gratitude Entry Features  
-:open:
 
-:::
 
----
-
-# Mood Tracking System
-
-:::{dropdown} Mood Tracking  
-:open:
-
-```markdown
-![Mood System Placeholder]()
-```
-
-:::
 
 ---
 
 # Dashboard Overview
 
-:::{dropdown} Dashboard Features  
-:open:
-
-```markdown
 ![Dashboard Placeholder]()
-```
 
-:::
 
----
 
-# Enhanced UX Features
-
-:::{dropdown} UX Enhancements  
-:open:
-
-:::
 
 ---
 
 # Data Management
 
-:::{dropdown} Data Systems  
-:open:
-
-```markdown
 ![Data Management Placeholder]()
-```
 
-:::
+
+
 
 ---
 
 # Deployment
 
-:::{dropdown} Deployment Documentation  
-:open:
-
-:::
 
 ---
 
 # AI Implementation & Orchestration
 
-:::{dropdown} AI Features and Architecture  
-:open:
 
-```markdown
 ![AI Diagram Placeholder]()
-```
 
-:::
+
+
 
 ---
 
@@ -281,114 +244,87 @@ So I made **transactions.html**.
 
 ## Desktop Lighthouse Reports
 
-:::{dropdown} Desktop Lighthouse Reports  
-:open:
 
-```markdown
 ![Desktop Lighthouse Report]()
-```
 
-:::
+
+
 
 ---
 
 ## Mobile Lighthouse Reports
 
-:::{dropdown} Mobile Lighthouse Reports  
-:open:
 
-```markdown
 ![Mobile Lighthouse Report]()
-```
 
-:::
+
+
 
 ---
 
 ## HTML Validation
 
-:::{dropdown} HTML Validation  
-:open:
-
-```markdown
 ![HTML Validation Screenshot]()
-```
 
-:::
+
+
 
 ---
 
 ## CSS Validation
 
-:::{dropdown} CSS Validation  
-:open:
-
-```markdown
 ![CSS Validation Screenshot]()
-```
 
-:::
+
+
 
 ---
 
 ## Python Validation
 
-:::{dropdown} Python Validation  
-:open:
-
-```markdown
 ![Python Validation Screenshot]()
-```
 
-:::
+
+
 
 ---
 
 ## JavaScript Validation
 
-:::{dropdown} JS Validation  
-:open:
 
-```markdown
+
+markdown
 ![JS Validation Screenshot]()
-```
 
-:::
+
+
 
 ---
 
 ## Manual Testing
 
-:::{dropdown} Manual Test Cases  
-:open:
 
-:::
 
 ---
 
 ## Automated Testing
 
-:::{dropdown} Automated Test Suite  
-:open:
-
-:::
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+</details>
 
 ---
 
 # Future Enhancements
 
-:::{dropdown} Roadmap  
-:open:
+  
 
-:::
 
 ---
 
 # Credits
 
-:::{dropdown} Project Credits  
-:open:
-
-:::
 
 _This project is dedicated to my unfinished degree in Economics and Finance in Portugal._

@@ -113,7 +113,7 @@ class Transaction(models.Model):
                                  related_name="received_transactions")
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     timestamp = models.DateTimeField(auto_now_add=True)
-    card = models.ForeignKey("Card", on_delete=models.CASCADE, null=True)
+    card = models.ForeignKey("Card", null=True, blank=True, on_delete=models.SET_NULL)
 
 
     def __str__(self):
@@ -133,3 +133,4 @@ class Transaction(models.Model):
         if sender is not None and receiver is not None:
             if sender == receiver:
                 raise ValidationError("Sender and receiver cannot be the same.")
+

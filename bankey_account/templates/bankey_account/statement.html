@@ -19,20 +19,30 @@
         </thead>
         <tbody id="statement-body">
         {% for tx in page_obj %}
-        <tr class="tx-row {% if tx.sender == request.user %}tx-out{% else %}tx-in{% endif %}"
+        <tr class="tx-row {% if not tx.card %}tx-deleted{% elif tx.sender == request.user %}tx-out{% else %}tx-in{% endif %}"
+            data-reference="{{ tx.reference }}"
             data-sender="{{ tx.sender }}"
             data-receiver="{{ tx.receiver }}"
             data-amount="{{ tx.amount }}"
-            data-reference="{{ tx.reference }}"
-            data-date="{{ tx.timestamp }}">
+            data-date="{{ tx.timestamp|date:'Y-m-d H:i' }}">
+
             <td>{{ tx.reference }}</td>
-            <td>{{ tx.sender }}</td>
+
+            <td>
+                {% if tx.card %}
+                {{ tx.card.card_number }}
+                {% else %}
+                <span class="deleted-label">DELETED CARD</span>
+                {% endif %}
+            </td>
+
             <td>{{ tx.receiver }}</td>
             <td>{{ tx.amount }}</td>
             <td>{{ tx.timestamp|date:"Y-m-d H:i" }}</td>
         </tr>
         {% endfor %}
         </tbody>
+
     </table>
 
     {% if page_obj.has_next %}

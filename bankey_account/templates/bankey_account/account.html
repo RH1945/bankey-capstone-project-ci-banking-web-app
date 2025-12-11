@@ -45,40 +45,53 @@
         <div class="cards-grid">
             {% for card in cards %}
             <div class="bank-card">
-                <div class="card-glass"></div>
-                <div class="card-shine"></div>
 
-                <div class="card-top">
-                        <span class="card-type">
-                            {% if card.card_type == 0 %}DEBIT{% else %}CREDIT{% endif %}
-                        </span>
-                    <div class="card-chip"></div>
-                </div>
+    <!-- Delete Icon Overlay -->
+    <form method="POST"
+          action="{% url 'bankey_account:card_delete' card.id %}"
+          class="card-delete-overlay"
+          onsubmit="return confirm('Delete this card? This will NOT remove past transactions.')">
+        {% csrf_token %}
+        <button type="submit" class="delete-icon-btn">
+            ✕
+        </button>
+    </form>
 
-                <div class="card-number">
-                    {{ card.card_number|slice:":4" }}
-                    {{ card.card_number|slice:"4:8" }}
-                    {{ card.card_number|slice:"8:12" }}
-                    {{ card.card_number|slice:"12:16" }}
-                </div>
+    <div class="card-glass"></div>
+    <div class="card-shine"></div>
 
-                <div class="card-footer">
-                    <div class="card-exp">
-                        <small>EXPIRES</small>
-                        <span>{{ card.expiration_date|date:"m/y" }}</span>
-                    </div>
+    <div class="card-top">
+        <span class="card-type">
+            {% if card.card_type == 0 %}DEBIT{% else %}CREDIT{% endif %}
+        </span>
+        <div class="card-chip"></div>
+    </div>
 
-                    <div class="card-balance">
-                        <small>BALANCE</small>
-                        <span>£{{ card.card_balance }}</span>
-                    </div>
+    <div class="card-number">
+        {{ card.card_number|slice:":4" }}
+        {{ card.card_number|slice:"4:8" }}
+        {{ card.card_number|slice:"8:12" }}
+        {{ card.card_number|slice:"12:16" }}
+    </div>
 
-                    <div class="card-owner">
-                        {{ card.account.user.full_name|upper }}
-                    </div>
-                </div>
+    <div class="card-footer">
+        <div class="card-exp">
+            <small>EXPIRES</small>
+            <span>{{ card.expiration_date|date:"m/y" }}</span>
+        </div>
 
-            </div>
+        <div class="card-balance">
+            <small>BALANCE</small>
+            <span>£{{ card.card_balance }}</span>
+        </div>
+
+        <div class="card-owner">
+            {{ card.account.user.full_name|upper }}
+        </div>
+    </div>
+</div>
+
+
             {% empty %}
             <p class="empty-msg">
                 You have no cards yet. Create one to get started.

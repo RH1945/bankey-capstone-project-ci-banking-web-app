@@ -29,40 +29,53 @@
     <button type="submit" class="btn btn-primary">Send</button>
 </form>
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        document.querySelector("form").addEventListener("submit", async e => {
-            e.preventDefault();
-            let form = e.target;
-            let data = new FormData(form);
+document.addEventListener("DOMContentLoaded", () => {
 
-            const response = await fetch("", {
-                method: "POST",
-                body: data,
-                headers: {"X-Requested-With": "XMLHttpRequest"}
-            });
-            const result = await response.json();
+    document.querySelector("form").addEventListener("submit", async e => {
+        e.preventDefault();
+        let form = e.target;
+        let data = new FormData(form);
 
-            if (result.success) {
-                document.getElementById("r-card").textContent = result.card;
-                document.getElementById("r-receiver").textContent = result.receiver;
-                document.getElementById("r-amount").textContent = result.amount;
-                document.getElementById("r-reference").textContent = result.reference;
-                document.getElementById("r-date").textContent = result.date;
-
-                document.getElementById("receipt-modal").classList.remove("hidden");
-            }
-
+        const response = await fetch("", {
+            method: "POST",
+            body: data,
+            headers: {"X-Requested-With": "XMLHttpRequest"}
         });
 
-        document.getElementById("receipt-close").addEventListener("click", () => {
-            window.location.href = "/account/";
-        });
+        const result = await response.json();
+        if (!result.success) {
+            showBanner(result.error, "error");
+            return;
+        }
 
-        document.getElementById("receipt-ok").addEventListener("click", () => {
-            window.location.href = "/account/";
-        });
+        document.getElementById("r-card").textContent = result.card;
+        document.getElementById("r-receiver").textContent = result.receiver;
+        document.getElementById("r-amount").textContent = result.amount;
+        document.getElementById("r-reference").textContent = result.reference;
+        document.getElementById("r-date").textContent = result.date;
+
+        document.getElementById("receipt-modal").classList.remove("hidden");
     });
+
+    document.getElementById("receipt-close").addEventListener("click", () => {
+        window.location.href = "/account/";
+    });
+
+    document.getElementById("receipt-ok").addEventListener("click", () => {
+        window.location.href = "/account/";
+    });
+
+    function showBanner(message, type = "error") {
+        let banner = document.createElement("div");
+        banner.className = `django-messages msg ${type}`;
+        banner.textContent = message;
+
+        document.body.prepend(banner);
+        setTimeout(() => banner.remove(), 4000);
+    }
+});
 </script>
+
 
 {% endblock %}
 

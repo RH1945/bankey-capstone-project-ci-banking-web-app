@@ -16,7 +16,7 @@
 :root {
     --primary-font: BIZ UDPMincho, sans-serif;
     --secondary-font: Google Sans Code, sans-serif;
-    --primary-text-color: #ffeeee;
+    --primary-text-color: #264675;
     --primary-background-color: #18191e;
     --secondary-text-color: #dcdcdb;
     --primary-color: #264675;
@@ -422,7 +422,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     width: 360px;
     height: 220px;
     border-radius: 22px;
-    background: linear-gradient(135deg, #7a6cff, #ffcc70, #ff5a78);
+    background: linear-gradient(135deg, rgba(122, 108, 255, 0.48), rgba(255, 204, 112, 0.6), rgba(255, 90, 120, 0.54));
     color: #111;
     font-family: var(--secondary-font);
     padding: 1.6rem;
@@ -496,7 +496,7 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     position: relative;
     z-index: 3;
     margin-top: 3rem;
-    font-size: 1.45rem;
+    font-size: 1.25rem;
     letter-spacing: 4px;
 }
 
@@ -615,6 +615,11 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
     font-weight: 600;
     background: rgba(46, 204, 113, 0.15);
 }
+.tx-deleted {
+    color: #888;
+    font-style: italic;
+}
+
 
 /* index card */
 
@@ -656,12 +661,14 @@ body, p, h1, h2, h3, h4, h5, a, li, span {
 .cta-title {
     font-size: 1.6rem;
     font-family: var(--primary-font);
+    color: var(--black);
 }
 
 /*noinspection ALL*/
 .cta-text {
     margin-top: 1rem;
     font-family: var(--secondary-font);
+    color: var(--black);
 }
 
 main, .account-layout, .dashboard-container {
@@ -781,16 +788,47 @@ main, .account-layout, .dashboard-container {
     margin: 0 auto 1rem;
     width: 60%;
     font-family: var(--secondary-font);
+    font-weight: 500;
+    animation: fadeSlideIn 0.4s ease forwards, fadeOut 0.4s ease 4s forwards;
+}
+@keyframes fadeSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+}
+
+.django-messages {
+    margin-top: 10px;
+    padding: 0 20px;
 }
 
 .msg.success {
-    background: var(--success-bg);
-    color: var(--success-text);
+    background-color: #d6f5d6;
+    color: #155724;
+    border: 1px solid #b2e2b2;
 }
 
 .msg.error {
-    background: var(--danger-color);
-    color: white;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.msg.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
 }
 
 
@@ -842,6 +880,35 @@ main, .account-layout, .dashboard-container {
     }
 }
 
+/* Delete icon overlay */
+.card-delete-overlay {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    z-index: 50;
+}
+
+.delete-icon-btn {
+    background: rgba(0, 0, 0, 0.4);
+    border: none;
+    color: white;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* Hover effect */
+.delete-icon-btn:hover {
+    background: rgba(220, 0, 0, 0.85);
+    color: white;
+}
+
+
 /*  LARGE PHONES (≤ 768px)  */
 @media (max-width: 768px) {
 
@@ -878,7 +945,7 @@ main, .account-layout, .dashboard-container {
     }
 
     .card-number {
-        font-size: 1.15rem;
+        font-size: 1rem;
         letter-spacing: 3px;
     }
 
