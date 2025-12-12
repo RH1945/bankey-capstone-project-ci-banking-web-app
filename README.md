@@ -8,6 +8,9 @@
 
 ---
 
+### Here's a full walktrhough of the deployed site
+[![Bankey Walktrhough](static/readme/yt%20vid%20template.gif)](https://youtu.be/JMLCL7Gjmak)
+
 # Index
 
 - [Overview](#overview)
@@ -92,10 +95,6 @@ better apps in future hackathons, expanding on this idea and related subjects :)
 
 </details>
 
-![Overview Image Placeholder]()
-
-
-
 ---
 
 # UX Design
@@ -110,43 +109,37 @@ and the rest could be filler content.
 
 ![wireframes index.png](static/readme/wireframes%20index.png)
 ![fl index.png](static/readme/fl%20index.png)
-
 </details>
+
 <details>
 <summary>Cards wireframe vs Actual</summary>
 <br>
 
 ![wireframes cards.png](static/readme/wireframes%20cards.png)
 ![fl cards.png](static/readme/fl%20cards.png)
-
 </details>
 
 <details>
-<summary></summary>
+<summary>Statement wireframe vs Actual</summary>
 <br>
 
-![]()
-![]()
+![wireframes statement.png](static/readme/wireframes%20statement.png)
+![fl statement.png](static/readme/fl%20statement.png)
 </details>
-
-wireframe vs Actual
-<details>
-<summary></summary>
-<br>
-
-![]()
-![]()
-
-</details>
-
-### Reasoning
 
 <details>
-<summary></summary>
+<summary>Transaction wireframe vs Actual</summary>
 <br>
 
+![wireframes transactions.png](static/readme/wireframes%20transactions.png)
+![fl transactions.png](static/readme/fl%20transactions.png)
 </details>
-My thought process for the templates was so:
+
+### Templates reasoning 
+
+<details>
+<summary>My thought process for the templates was so:</summary>
+<br>
 
 I need to be able to display the "base" everywhere, this includes
 the navbar and the footer only. So, I needed **base.html**.
@@ -165,6 +158,8 @@ Hence, I need **account.html**.
 I also knew I needed a secure feel for the transactions, I wanted the look to help the user
 focus more on their transaction so they could feel confident in typing and having the right info.
 So I made **transactions.html**.
+</details>
+
 ---
 
 # User Stories
@@ -191,12 +186,12 @@ So I made **transactions.html**.
 # ERD
 
 <details>
-<summary></summary>
+<summary>The Entity relationship models are essential. Mainly, to plan the look of the site, movement and interactitivity
+of the user and the scope of the project.
+Hence, they were looked at carefully and laid out from the inception of the project. Read more...</summary>
 <br>
 
-The Entity relationship models are essential. Mainly, to plan the look of the site, movement and interactitivity
-of the user and the scope of the project.
-Hence, they were looked at carefully and laid out from the inception of the project.
+
 
 ## Relationship Summary
 
@@ -298,12 +293,12 @@ This was the first sketch for the ERDs:
 ## Colors
 
 <details>
-<summary></summary>
+<summary>The color palette was chosen very early on and stayed mostly unchanged throughout the project. I wanted something that
+felt slightly artificial and glossy, closer to a “concept bank” than a real one...</summary>
 <br>
 
-The color palette was chosen very early on and stayed mostly unchanged throughout the project. I wanted something that
-felt slightly artificial and glossy, closer to a “concept bank” than a real one, with gradients doing most of the heavy
-lifting. Dark backgrounds help the cards and UI elements pop, while the warmer gradients give the illusion of something
+...With gradients doing most of the heavy lifting. Dark backgrounds help the cards and UI elements pop, while the warmer 
+gradients give the illusion of something 
 friendly and premium, even if the functionality underneath is deliberately simple.
 
 Most colours are defined as CSS variables in a single file, which made it easier to tweak contrast and visibility late
@@ -339,6 +334,8 @@ be more fragile than expected on smaller screens.
 
 # Key Features
 
+
+
 <details>
 <summary>Creating cards and performing transactions are the focus of this app.</summary>
 <br>
@@ -354,11 +351,11 @@ when carefully combined with Django templates.
 
  
 <details>
-<summary>This short video goes through signing up, making an account and card. We create a transaction, send 10 bucks
-and check our statement. We delete a card and log out... enjoy</summary>
+<summary>This short video goes through signing up, making an account and card. We create a transaction, send a few bucks
+and checking a statement. We delete a card and log out... enjoy</summary>
 <br>
 
-[key features showcase.mov](static/readme/key%20features%20showcase.mov)
+[![Bankey Walktrhough](static/readme/yt%20vid%20template.gif)](https://youtu.be/JMLCL7Gjmak)
 </details>
 
 ---
