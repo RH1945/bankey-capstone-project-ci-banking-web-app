@@ -9,6 +9,7 @@
 ---
 
 ### Here's a full walktrhough of the deployed site
+
 [![Bankey Walktrhough](static/readme/yt%20vid%20template.gif)](https://youtu.be/JMLCL7Gjmak)
 
 # Index
@@ -46,7 +47,7 @@ send and receive imaginary money, and check your statement. There are no special
 and the offers in the index page are sadly not met by this Bank. But regardless of the shortcomings in being a
 functioning e-Bank, Banky manages to be a good showcase of CRUD and django, in addition to the awesome animations
 and designs you can achieve with a bit of html and css. One thing to be aware of is that mobile was not first for this
-project, most banks seem to have a totally different app and website. I was careful to have responsiveness for small 
+project, most banks seem to have a totally different app and website. I was careful to have responsiveness for small
 screens, but in this case, it was not as important as the main desktop view.
 
 This idea is made up of:
@@ -99,7 +100,7 @@ better apps in future hackathons, expanding on this idea and related subjects :)
 
 # UX Design
 
-The first idea of this simple look came about by remembering my first project, nervous health 
+The first idea of this simple look came about by remembering my first project, nervous health
 which had an easy navigation. The main feature I needed for the index was a CTA that conected to the key features,
 and the rest could be filler content.
 
@@ -135,7 +136,7 @@ and the rest could be filler content.
 ![fl transactions.png](static/readme/fl%20transactions.png)
 </details>
 
-### Templates reasoning 
+### Templates reasoning
 
 <details>
 <summary>My thought process for the templates was so:</summary>
@@ -191,8 +192,6 @@ of the user and the scope of the project.
 Hence, they were looked at carefully and laid out from the inception of the project. Read more...</summary>
 <br>
 
-
-
 ## Relationship Summary
 
 | From          | To                     | Relationship | On Delete |
@@ -205,13 +204,13 @@ Hence, they were looked at carefully and laid out from the inception of the proj
 
 ERD cardinality Overview:
 
-User
-├── 0..* BankeyAccount
-│ ├── 0..* Card
-│ │ └── 0..* Transaction
-│
-├── 0..* Transaction (as sender)
-└── 0..* Transaction (as receiver)
+-User
+-├── 0..* BankeyAccount
+-│ ├── 0..* Card
+-│ │ └── 0..* Transaction
+-│
+-├── 0..* Transaction (as sender)
+-└── 0..* Transaction (as receiver)
 
 <details>
 <summary>User (extends Django AbstractUser)</summary>
@@ -297,8 +296,8 @@ This was the first sketch for the ERDs:
 felt slightly artificial and glossy, closer to a “concept bank” than a real one...</summary>
 <br>
 
-...With gradients doing most of the heavy lifting. Dark backgrounds help the cards and UI elements pop, while the warmer 
-gradients give the illusion of something 
+...With gradients doing most of the heavy lifting. Dark backgrounds help the cards and UI elements pop, while the warmer
+gradients give the illusion of something
 friendly and premium, even if the functionality underneath is deliberately simple.
 
 Most colours are defined as CSS variables in a single file, which made it easier to tweak contrast and visibility late
@@ -334,8 +333,6 @@ be more fragile than expected on smaller screens.
 
 # Key Features
 
-
-
 <details>
 <summary>Creating cards and performing transactions are the focus of this app.</summary>
 <br>
@@ -349,7 +346,6 @@ strictly necessary for functionality, they help demonstrate how far HTML, CSS, a
 when carefully combined with Django templates.
 </details>
 
- 
 <details>
 <summary>This short video goes through signing up, making an account and card. We create a transaction, send a few bucks
 and checking a statement. We delete a card and log out... enjoy</summary>
@@ -363,12 +359,10 @@ and checking a statement. We delete a card and log out... enjoy</summary>
 # User Authentication & Management
 
 <details>
-<summary></summary>
+<summary>Authentication is handled using Django’s built-in tools, with a custom User model added early on to support a
+date of birth field. This added some complexity but allowed tighter control over account generation and
+future expansion ideas, such as identity-based account numbers.</summary>
 <br>
-
-Authentication is handled using Django’s built-in tools, with a custom User model added early on to support a
-date of birth field. This decision added some complexity but allowed tighter control over account generation and
-future expansion ideas, such as identity-based account numbers.
 
 Login, signup, and logout flows are simple by design. Feedback to the user is provided through message banners rather
 than page redirects wherever possible, keeping the experience fluid and reducing friction. While security is
@@ -378,45 +372,46 @@ intentionally lightweight for a demo app, the structure mirrors real-world patte
 
 </details>
 
-
-
-
-
-
-
----
-
-# Dashboard Overview
-
-![Dashboard Placeholder]()
-
-
-
-
 ---
 
 # Data Management
 
-![Data Management Placeholder]()
+All models in the project are custom and interconnected: users own accounts, accounts own cards, and transactions
+reference users and cards. Special care was taken to ensure that deleting a card does not destroy transaction history,
+which is handled through nullable foreign keys and clear fallback states in the UI.
 
-
-
+Balances are derived rather than blindly trusted, and account totals are recalculated from card balances to keep data
+consistent, (see utils.py). While this is not a production-ready financial system, it demonstrates sound relational thinking and
+defensive data design.
 
 ---
 
 # Deployment
 
----
+<details>
+<summary>Using the Code institute plan for the students, I deployed the project to Heroku. Thanks to their eco dynos We are able
+to host for free. The server is asleep until requested, it might need a moment to warm up.</summary>
+<br>
 
-Using the Code institute plan for the students, I deployed the project to Heroku. Thanks to their eco dynos We are able
-to host for free. The server is asleep until requested, it might need a moment to warm up.
+Deployment proved to be one of the most time-consuming parts of the project. Issues with environment variables, database
+configuration, and settings mismatches caused delays that reshaped the original timeline. Eventually, the application
+was successfully deployed after rebuilding the settings configuration and re-connecting dependencies from scratch.
+
+The experience highlighted how fragile deployment pipelines can be when even small configuration details are overlooked.
+It also reinforced the importance of testing deployment early, not just functionality.
+</details>
+
+---
 
 # AI Implementation & Orchestration
 
-![AI Diagram Placeholder]()
+AI was not directly embedded into the application’s runtime logic, but it played a role during development. It was used
+primarily as a reasoning partner for debugging, refactoring, and validating architectural decisions rather than as a
+code generator.
 
-
-
+This approach helped clarify problems instead of obscuring them. Rather than relying on AI to “solve” the project, it
+was used to ask better questions, especially when dealing with Django relationships, asynchronous behaviour, and UI edge
+cases.
 
 ---
 
@@ -424,9 +419,12 @@ to host for free. The server is asleep until requested, it might need a moment t
 
 ## Desktop Lighthouse Reports
 
-![Desktop Lighthouse Report]()
+<details>
+<summary></summary>
+<br>
 
 
+</details>
 
 
 ---
@@ -451,14 +449,18 @@ to host for free. The server is asleep until requested, it might need a moment t
 
 ## CSS Validation
 
+I was very happy to see no issues at all with the CSS! :)
+
 ![WC3 CSS validation.png](static/readme/WC3%20CSS%20validation.png)![CSS Validation Screenshot]()
-
-
+ez w
 
 
 ---
 
 ## Python Validation
+
+I ran all my created python files through a linter called ![Pyrfecter](erhttps://pyrfecter.com/format-python-code/), it
+basically  lints, formats, and modernizes python files to make the code positively perfect!
 
 ---
 
@@ -468,9 +470,8 @@ to host for free. The server is asleep until requested, it might need a moment t
 
 ## Manual Testing
 
----
-
-## Automated Testing
+I sent links to tutors and CS graduate friends who had a good look and gave some tips... Overall there were no
+issues with the user POV. 
 
 ---
 
@@ -479,5 +480,12 @@ to host for free. The server is asleep until requested, it might need a moment t
 ---
 
 # Credits
+
+- Stock photos were taken from ![Pexels](https://www.pexels.com/), a web library that stores a wide variety of
+images that are free to use for my purposes.
+- Most of my corrections were a 70/30 of ![django manpages](https://docs.djangoproject.com/en/6.0/) and "sanity checks"
+from chatGPT, mainly to corroborate something was likely to work or written with good practices, 
+especially because my database was broken for the first week I was stuck with local hosting.
+- 
 
 _This project is dedicated to my unfinished degree in Economics and Finance in Portugal._

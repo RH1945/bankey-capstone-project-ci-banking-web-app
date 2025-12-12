@@ -1,5 +1,6 @@
 from django import forms
-from .models import Transaction, BankeyAccount, Card
+
+from .models import BankeyAccount, Card, Transaction
 
 
 class TransactionForm(forms.ModelForm):

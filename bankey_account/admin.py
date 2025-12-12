@@ -1,6 +1,8 @@
+# Format Python code here
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, BankeyAccount, Card, Transaction
+
+from .models import BankeyAccount, Card, Transaction, User
 
 
 @admin.register(User)
@@ -18,14 +20,28 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(BankeyAccount)
 class BankeyAccountAdmin(admin.ModelAdmin):
-    list_display = ("user", "acc_number", "acc_type", "currency", "acc_balance", "created_on")
+    list_display = (
+        "user",
+        "acc_number",
+        "acc_type",
+        "currency",
+        "acc_balance",
+        "created_on",
+    )
     list_filter = ("acc_type", "currency", "created_on")
     search_fields = ("acc_number", "user__username", "user__email")
 
 
 @admin.register(Card)
 class CardAdmin(admin.ModelAdmin):
-    list_display = ("account", "card_number", "card_type", "card_balance", "expiration_date", "created_on")
+    list_display = (
+        "account",
+        "card_number",
+        "card_type",
+        "card_balance",
+        "expiration_date",
+        "created_on",
+    )
     list_filter = ("card_type", "expiration_date")
     search_fields = ("card_number", "account__acc_number", "account__user__username")
 

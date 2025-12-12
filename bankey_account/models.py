@@ -1,9 +1,16 @@
+# Format Python code here
 from datetime import date
+
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
-from .utils import generate_account_number, generate_card_number, generate_expiration_date
-from django.conf import settings
 from django.db import models
+
+from .utils import (
+    generate_account_number,
+    generate_card_number,
+    generate_expiration_date,
+)
 
 # Create your models here.
 
@@ -33,6 +40,7 @@ class BankeyAccount(models.Model):
     It saves its users' full name and email, and the accounts Balance, Type, and Number.
     Related to :model:`User`
     """
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     acc_balance = models.DecimalField(max_digits=24, decimal_places=2, default=0)
     acc_type = models.IntegerField(choices=ACCOUNT_TYPE, default=2)
@@ -69,13 +77,16 @@ class Card(models.Model):
     """
     Creates an instance of card of a type (Debit, Credit) related to :model:`BankeyAccount`
     """
+
     PERSONAL_CARD_TYPE = ((0, "Debit"), (1, "Credit"))
     BUSINESS_CARD_TYPE = ((0, "Company"), (1, "Wage-Payment"))
 
     account = models.ForeignKey(BankeyAccount, on_delete=models.CASCADE)
     card_balance = models.DecimalField(max_digits=24, decimal_places=2, default=0)
     expiration_date = models.DateField(default=generate_expiration_date)
-    card_number = models.CharField(max_length=16, unique=True, default=generate_card_number)
+    card_number = models.CharField(
+        max_length=16, unique=True, default=generate_card_number
+    )
     card_type = models.IntegerField(choices=PERSONAL_CARD_TYPE)
     created_on = models.DateTimeField(auto_now_add=True)
 
@@ -107,14 +118,21 @@ class Transaction(models.Model):
     """
     Creates an instance of Transaction related to :model:`BankeyAccount`
     """
+
     reference = models.CharField(max_length=24, blank=True)
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="sent_transactions")
-    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                                 related_name="received_transactions")
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="sent_transactions",
+    )
+    receiver = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="received_transactions",
+    )
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     timestamp = models.DateTimeField(auto_now_add=True)
     card = models.ForeignKey("Card", null=True, blank=True, on_delete=models.SET_NULL)
-
 
     def __str__(self):
         return f"{self.sender} → {self.receiver} | {self.amount}"

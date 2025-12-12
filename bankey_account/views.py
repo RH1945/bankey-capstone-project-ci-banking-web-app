@@ -1,12 +1,14 @@
-from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+# Format Python code here
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from .models import Card, Transaction, BankeyAccount
-from .forms import TransactionForm, BankeyAccountForm, CardCreateForm
-from .utils import generate_expiration_date
 from django.db.models import Q
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .forms import BankeyAccountForm, CardCreateForm, TransactionForm
+from .models import BankeyAccount, Card, Transaction
+from .utils import generate_expiration_date
 
 
 # ACCOUNT DASHBOARD
@@ -20,11 +22,15 @@ def account_view(request):
     cards = Card.objects.filter(account=account)
     primary_card = cards.first()  # Used for nav display
 
-    return render(request, "bankey_account/account.html", {
-        "account": account,
-        "cards": cards,
-        "primary_card": primary_card,
-    })
+    return render(
+        request,
+        "bankey_account/account.html",
+        {
+            "account": account,
+            "cards": cards,
+            "primary_card": primary_card,
+        },
+    )
 
 
 # CREATE BANK ACCOUNT
@@ -75,11 +81,7 @@ def card_create_view(request):
     else:
         form = CardCreateForm()
 
-    return render(
-        request,
-        "bankey_account/card_create.html",
-        {"form": form}
-    )
+    return render(request, "bankey_account/card_create.html", {"form": form})
 
 
 # STATEMENT VIEW
@@ -115,13 +117,18 @@ def statement_view(request, card_number):
         }
         return JsonResponse(data)
 
-    return render(request, "bankey_account/statement.html", {
-        "card": card,
-        "page_obj": page_obj,
-        "account": account,
-        "cards": cards,
-        "primary_card": primary_card,
-    })
+    return render(
+        request,
+        "bankey_account/statement.html",
+        {
+            "card": card,
+            "page_obj": page_obj,
+            "account": account,
+            "cards": cards,
+            "primary_card": primary_card,
+        },
+    )
+
 
 # TRANSACTION VIEW
 @login_required
@@ -140,7 +147,9 @@ def transaction_create_view(request):
             reference = form.cleaned_data.get("reference", "")
 
             if amount <= 0:
-                return JsonResponse({"success": False, "error": "Amount must be positive."})
+                return JsonResponse(
+                    {"success": False, "error": "Amount must be positive."}
+                )
 
             if sender_card.card_balance < amount:
                 return JsonResponse({"success": False, "error": "Insufficient funds."})
@@ -164,14 +173,16 @@ def transaction_create_view(request):
 
             # ajax response
             if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-                return JsonResponse({
-                    "success": True,
-                    "card": sender_card.card_number,
-                    "receiver": f"{receiver_user.first_name} {receiver_user.last_name}",
-                    "amount": float(amount),
-                    "reference": reference,
-                    "date": tx.timestamp.strftime("%Y-%m-%d %H:%M"),
-                })
+                return JsonResponse(
+                    {
+                        "success": True,
+                        "card": sender_card.card_number,
+                        "receiver": f"{receiver_user.first_name} {receiver_user.last_name}",
+                        "amount": float(amount),
+                        "reference": reference,
+                        "date": tx.timestamp.strftime("%Y-%m-%d %H:%M"),
+                    }
+                )
 
             # fallback for normal POST (just in case)
             messages.success(request, "Transaction completed successfully!")
@@ -187,10 +198,10 @@ def transaction_create_view(request):
 
     # GET request
     form = TransactionForm(user=request.user)
-    return render(request, "bankey_account/transaction.html", {
-        "form": form,
-        "cards": cards
-    })
+    return render(
+        request, "bankey_account/transaction.html", {"form": form, "cards": cards}
+    )
+
 
 # CARD DELETE VEIW
 @login_required
@@ -204,4 +215,3 @@ def card_delete_view(request, card_id):
         messages.success(request, "Card deleted successfully.")
         return redirect("bankey_account:account")
     return redirect("bankey_account:account")
-
