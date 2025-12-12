@@ -1,6 +1,10 @@
 # Bankey - Capstone Project
 
-*(Code Institute Full Stack Developer Programme)*
+*( For Code Institute Full Stack Developer Programme)*
+
+## [CHECK THE DEPLOYED SITE HERE!](https://bankey-76bdd08d1577.herokuapp.com/)
+
+(Might take a moment to warm up, the website is dormant while not used)
 
 ---
 
@@ -9,10 +13,6 @@
 - [Overview](#overview)
 - [UX Design](#ux-design)
 - [User Stories](#user-stories)
-- [Must Haves](#must-haves)
-- [Should Haves](#should-haves)
-- [Could Haves](#could-haves)
-- [Wireframes](#wireframes)
 - [ERD](#erd)
 - [Colours](#colors)
 - [Font](#font)
@@ -35,7 +35,6 @@
 - [Credits](#credits)
 
 ---
-![]()
 
 # Overview
 
@@ -43,20 +42,22 @@ Bankey is a blog disguised as a banking app where you can create your account, m
 send and receive imaginary money, and check your statement. There are no special differences with the different cards,
 and the offers in the index page are sadly not met by this Bank. But regardless of the shortcomings in being a
 functioning e-Bank, Banky manages to be a good showcase of CRUD and django, in addition to the awesome animations
-and designs you can achieve with a bit of html and css.
+and designs you can achieve with a bit of html and css. One thing to be aware of is that mobile was not first for this
+project, most banks seem to have a totally different app and website. I was careful to have responsiveness for small 
+screens, but in this case, it was not as important as the main desktop view.
 
 This idea is made up of:
-1 project
-2 apps
-1 css
-1 main script
-4 models
-10 views
-8 templates + 1 base (9)
 
+- 1 project
+- 2 apps
+- 1 css
+- 1 main script
+- 4 models
+- 10 views
+- 8 templates + 1 base (9)
 
 <details>
-<summary>Read more...</summary>
+<summary> Read more... </summary>
 <br>
 I came into this project expecting the functionality of a bank app to be very similar to a blog, which was the aim 
 of the capstone, "make your own version of a blog". With a custom model, CRUD functionality and a using the
@@ -99,6 +100,10 @@ better apps in future hackathons, expanding on this idea and related subjects :)
 
 # UX Design
 
+The first idea of this simple look came about by remembering my first project, nervous health 
+which had an easy navigation. The main feature I needed for the index was a CTA that conected to the key features,
+and the rest could be filler content.
+
 <details>
 <summary>Dashboard wireframe vs Actual</summary>
 <br>
@@ -114,19 +119,18 @@ better apps in future hackathons, expanding on this idea and related subjects :)
 ![wireframes cards.png](static/readme/wireframes%20cards.png)
 ![fl cards.png](static/readme/fl%20cards.png)
 
-</details><details>
-<summary>wireframe vs Actual</summary>
-<br>
+</details>
 
-![]()
-![]()
-</details><details>
+<details>
 <summary></summary>
 <br>
 
 ![]()
 ![]()
-</details>wireframe vs Actual<details>
+</details>
+
+wireframe vs Actual
+<details>
 <summary></summary>
 <br>
 
@@ -166,55 +170,21 @@ So I made **transactions.html**.
 # User Stories
 
 <details>
-<summary></summary>
+<summary>Must Haves</summary>
+<br>
+
+</details>
+
+<details>
+<summary>Could Haves</summary>
 <br>
 
 </details>
 
 ---
 
-# Must Haves
 
-<details>
-<summary></summary>
-<br>
-
-</details>
-
-
----
-
-# Should Haves
-
-<details>
-<summary></summary>
-<br>
-
-</details>
-
-
----
-
-# Could Haves
-
-<details>
-<summary></summary>
-<br>
-
-</details>
-
-
----
-
-# Wireframes
-
-![Wireframe Placeholder]()
-
-<details>
-<summary></summary>
-<br>
-
-</details>
+( ノ ^o^)ノ
 
 ---
 
@@ -224,49 +194,172 @@ So I made **transactions.html**.
 <summary></summary>
 <br>
 
+The Entity relationship models are essential. Mainly, to plan the look of the site, movement and interactitivity
+of the user and the scope of the project.
+Hence, they were looked at carefully and laid out from the inception of the project.
+
+## Relationship Summary
+
+| From          | To                     | Relationship | On Delete |
+|---------------|------------------------|--------------|-----------|
+| User          | BankeyAccount          | One-to-Many  | CASCADE   |
+| BankeyAccount | Card                   | One-to-Many  | CASCADE   |
+| User          | Transaction (sender)   | One-to-Many  | CASCADE   |
+| User          | Transaction (receiver) | One-to-Many  | CASCADE   |
+| Card          | Transaction            | One-to-Many  | SET_NULL  |
+
+ERD cardinality Overview:
+
+User
+├── 0..* BankeyAccount
+│ ├── 0..* Card
+│ │ └── 0..* Transaction
+│
+├── 0..* Transaction (as sender)
+└── 0..* Transaction (as receiver)
+
+<details>
+<summary>User (extends Django AbstractUser)</summary>
+<br>
+
+| Field Name  | Type          | Constraints               | Description                          |
+|-------------|---------------|---------------------------|--------------------------------------|
+| id          | AutoField     | PK                        | Unique user identifier               |
+| username    | CharField     | unique, required          | Login username                       |
+| email       | EmailField    | optional                  | User email address                   |
+| first_name  | CharField     | optional                  | User first name                      |
+| last_name   | CharField     | optional                  | User last name                       |
+| full_name   | CharField     | auto-generated, read-only | Concatenation of first and last name |
+| dob         | DateField     | null, blank               | Date of birth                        |
+| password    | CharField     | required                  | Hashed password                      |
+| is_active   | BooleanField  | default=True              | Account active status                |
+| is_staff    | BooleanField  | default=False             | Admin access                         |
+| date_joined | DateTimeField | auto                      | Registration timestamp               |
+
+</details>
+<details>
+<summary>BankeyAccount</summary>
+<br>
+
+| Field Name  | Type              | Constraints | Description                |
+|-------------|-------------------|-------------|----------------------------|
+| id          | AutoField         | PK          | Unique account identifier  |
+| user        | ForeignKey → User | CASCADE     | Account owner              |
+| acc_balance | DecimalField      | default=0   | Total account balance      |
+| acc_type    | IntegerField      | choices     | Personal / Business / None |
+| acc_number  | CharField         | unique      | Generated account number   |
+| currency    | CharField         | choices     | Account currency           |
+| created_on  | DateTimeField     | auto        | Account creation timestamp |
+
 </details>
 
-![ERD Placeholder]()
+<details>
+<summary>Card</summary>
+<br>
+
+| Field Name      | Type                       | Constraints | Description               |
+|-----------------|----------------------------|-------------|---------------------------|
+| id              | AutoField                  | PK          | Unique card identifier    |
+| account         | ForeignKey → BankeyAccount | CASCADE     | Owning account            |
+| card_balance    | DecimalField               | default=0   | Card balance              |
+| card_number     | CharField                  | unique      | Generated card number     |
+| expiration_date | DateField                  | default     | Expiry date               |
+| card_type       | IntegerField               | choices     | Debit / Credit / Business |
+| created_on      | DateTimeField              | auto        | Card creation timestamp   |
+
+</details>
+
+<details>
+<summary>Transaction</summary>
+<br>
+
+| Field Name | Type              | Constraints    | Description                    |
+|------------|-------------------|----------------|--------------------------------|
+| id         | AutoField         | PK             | Unique transaction identifier  |
+| reference  | CharField         | blank          | Optional transaction reference |
+| sender     | ForeignKey → User | CASCADE        | User sending funds             |
+| receiver   | ForeignKey → User | CASCADE        | User receiving funds           |
+| card       | ForeignKey → Card | NULL, SET_NULL | Card used (can be deleted)     |
+| amount     | DecimalField      | required       | Transaction amount             |
+| timestamp  | DateTimeField     | auto           | Transaction timestamp          |
+
+</details>
+
+
+This was the first sketch for the ERDs:
+![ERD.png](static/readme/ERD.png)
+
+</details>
 
 
 
 ---
 
-# Colors
+## Colors
 
 <details>
 <summary></summary>
 <br>
 
+The color palette was chosen very early on and stayed mostly unchanged throughout the project. I wanted something that
+felt slightly artificial and glossy, closer to a “concept bank” than a real one, with gradients doing most of the heavy
+lifting. Dark backgrounds help the cards and UI elements pop, while the warmer gradients give the illusion of something
+friendly and premium, even if the functionality underneath is deliberately simple.
+
+Most colours are defined as CSS variables in a single file, which made it easier to tweak contrast and visibility late
+in the project without breaking layouts. This was especially useful when adjusting accessibility issues and making sure
+that important information, such as balances and transaction states, remained readable across different screen sizes.
+
+![Colors.png](static/readme/Colors.png)
+
 </details>
-![Colours Placeholder]()
-
-
 
 ---
 
-# Font
+## Font
 
 <details>
-<summary></summary>
+<summary>The two fonts are BIZ UDPMincho and Google Sans Code</summary>
 <br>
 
+Basically I looked for business fonts in google fonts and these two came up, I liked them, so I used them.
+I chose BIZ serif for headings and identity, and a Google sans font for numbers and technical content
+like card numbers and balances. This was done to subtly separate
+“human” content from “system” content, even if most users would never consciously notice it.
+
+The fonts are imported globally and referenced via CSS variables, which allowed consistent usage across templates. Font
+sizes were adjusted several times during responsive testing, particularly for the card number display, which proved to
+be more fragile than expected on smaller screens.
+
+![fonts.png](static/readme/fonts.png)
+
 </details>
-![Font Placeholder]()
-
-
-
 
 ---
 
 # Key Features
 
 <details>
-<summary></summary>
+<summary>Creating cards and performing transactions are the focus of this app.</summary>
 <br>
 
+At its core, Bankey supports basic CRUD operations disguised as banking actions: users can create accounts, issue cards,
+perform transactions, and review statements. None of these actions involve real money or real banking logic,
+but they mimic the structure and flow of an online banking experience closely enough to serve the project’s goals.
+
+The most visually prominent features are the animated cards, modal dialogs, and interactive tables. While these are not
+strictly necessary for functionality, they help demonstrate how far HTML, CSS, and a small amount of JavaScript can go
+when carefully combined with Django templates.
 </details>
 
+ 
+<details>
+<summary>This short video goes through signing up, making an account and card. We create a transaction, send 10 bucks
+and check our statement. We delete a card and log out... enjoy</summary>
+<br>
+
+[key features showcase.mov](static/readme/key%20features%20showcase.mov)
+</details>
 
 ---
 
@@ -276,8 +369,17 @@ So I made **transactions.html**.
 <summary></summary>
 <br>
 
+Authentication is handled using Django’s built-in tools, with a custom User model added early on to support a
+date of birth field. This decision added some complexity but allowed tighter control over account generation and
+future expansion ideas, such as identity-based account numbers.
+
+Login, signup, and logout flows are simple by design. Feedback to the user is provided through message banners rather
+than page redirects wherever possible, keeping the experience fluid and reducing friction. While security is
+intentionally lightweight for a demo app, the structure mirrors real-world patterns closely.
+
+![login.png](static/readme/login.png)
+
 </details>
-![Authentication Placeholder]()
 
 
 
@@ -308,6 +410,9 @@ So I made **transactions.html**.
 # Deployment
 
 ---
+
+Using the Code institute plan for the students, I deployed the project to Heroku. Thanks to their eco dynos We are able
+to host for free. The server is asleep until requested, it might need a moment to warm up.
 
 # AI Implementation & Orchestration
 
@@ -349,7 +454,7 @@ So I made **transactions.html**.
 
 ## CSS Validation
 
-![CSS Validation Screenshot]()
+![WC3 CSS validation.png](static/readme/WC3%20CSS%20validation.png)![CSS Validation Screenshot]()
 
 
 
@@ -358,20 +463,9 @@ So I made **transactions.html**.
 
 ## Python Validation
 
-![Python Validation Screenshot]()
-
-
-
-
 ---
 
 ## JavaScript Validation
-
-markdown
-![JS Validation Screenshot]()
-
-
-
 
 ---
 
@@ -380,12 +474,6 @@ markdown
 ---
 
 ## Automated Testing
-
-<details>
-<summary></summary>
-<br>
-
-</details>
 
 ---
 
