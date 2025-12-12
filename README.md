@@ -8,9 +8,9 @@
 
 ---
 
-### Here's a full walktrhough of the deployed site
+### Here's a full walkthrough of the deployed site
 
-[![Bankey Walktrhough](static/readme/yt%20vid%20template.gif)](https://youtu.be/JMLCL7Gjmak)
+[![Bankey Walkthrough](static/readme/yt%20vid%20template.gif)](https://youtu.be/JMLCL7Gjmak)
 
 # Index
 
@@ -22,10 +22,9 @@
 - [Font](#font)
 - [Key Features](#key-features)
 - [User Authentication & Management](#user-authentication--management)
-- [Dashboard Overview](#dashboard-overview)
 - [Data Management](#data-management)
 - [Deployment](#deployment)
-- [AI Implementation & Orchestration](#ai-implementation--orchestration)
+- [AI Implementation & Orchestration](#ai-implementation)
 - [Testing](#testing)
     - [Desktop Lighthouse Reports](#desktop-lighthouse-reports)
     - [Mobile Lighthouse Reports](#mobile-lighthouse-reports)
@@ -34,7 +33,6 @@
     - [Python Validation](#python-validation)
     - [JavaScript Validation](#javascript-validation)
     - [Manual Testing](#manual-testing)
-    - [Automated Testing](#automated-testing)
 - [Future Enhancements](#future-enhancements)
 - [Credits](#credits)
 
@@ -101,7 +99,7 @@ better apps in future hackathons, expanding on this idea and related subjects :)
 # UX Design
 
 The first idea of this simple look came about by remembering my first project, nervous health
-which had an easy navigation. The main feature I needed for the index was a CTA that conected to the key features,
+which had an easy navigation. The main feature I needed for the index was a CTA that connected to the key features,
 and the rest could be filler content.
 
 <details>
@@ -165,17 +163,17 @@ So I made **transactions.html**.
 
 # User Stories
 
-<details>
-<summary>Must Haves</summary>
-<br>
+For my user stories I believed that most of the thought process was focused on the django models so The user stories 
+loosely relate to models and to views. THe main focus of these was tracking goals and snapshot-like parts of the 
+project. 
 
-</details>
+An obvious "Must-have" is login and authetification, the first step of the blog idea is to have users who can "post"
+and hence track the "authors" of these. In this Bank version of a blog you must be authentificated to trade and 
+create cards. This is crucial to the experience.
 
-<details>
-<summary>Could Haves</summary>
-<br>
-
-</details>
+A "Could-have" story is the transaction detail modal which you can see when selecting a transaction from the statement
+template view. Here you will get a detailed view of the transaction. It wasn't necessary, so I added it because there
+was a bit of time to spare. It enhances the user's comfort by confirming the details of the transaction. 
 
 ---
 
@@ -285,8 +283,6 @@ This was the first sketch for the ERDs:
 
 </details>
 
-
-
 ---
 
 ## Colors
@@ -328,6 +324,45 @@ be more fragile than expected on smaller screens.
 ![fonts.png](static/readme/fonts.png)
 
 </details>
+
+---
+
+## Agile Development
+
+Bankey was developed using Agile principles, embracing iterative development, continuous feedback, and incremental
+delivery throughout the project lifecycle. Rather than planning all functionality in a single upfront phase, the project
+evolved through short development cycles focused on delivering usable features early and improving them based on real
+progress and testing outcomes.
+
+All development tasks, user stories, and enhancements were tracked using the GitHub Project Board,
+which provided a real-time snapshot of progress and helped prioritize what needed attention next. You can explore the
+live board here: https://github.com/users/RH1945/projects/7
+
+On this board, tasks moved across the columns:
+- Backlog — Features and ideas yet to be worked on
+- To Do — Items planned for the next development cycle
+- In Progress — Currently being implemented
+- Done — Fully implemented and tested features
+This structure ensured that development remained flexible, transparent, and focused on achievable goals.
+
+The project was broken into meaningful chunks that could be delivered and demonstrated independently. A sample
+progression of deliverable waves included:
+
+User Authentication & Management — First vertical slice of core functionality
+Account & Card Creation — Enabling CRUD operations for crucial models
+Transaction System — Allowing send/receive flows with feedback UX
+Statement & Pagination — Data listing with filtering and AJAX enhancements
+Enhanced UX Features — Color coding, modals, banners, animations
+Polish and Deployment — Refinement, responsive fixes, and live deployment
+
+For example, pagination was initially planned as a simple page navigation but evolved into an AJAX-driven “Load More”
+feature once the UI patterns demanded smoother interaction.
+
+Continuous Integration of Learning:
+Agile here wasn’t just about task tracking: it became a process of learning by doing. Bankey’s development integrated:
+classroom concepts, real-world design patterns, collaborative refinement (by asking tutors and peers for feedback)
+
+This made the project both a technical exercise and a practical lesson in flexible delivery under evolving requirements.
 
 ---
 
@@ -381,7 +416,8 @@ reference users and cards. Special care was taken to ensure that deleting a card
 which is handled through nullable foreign keys and clear fallback states in the UI.
 
 Balances are derived rather than blindly trusted, and account totals are recalculated from card balances to keep data
-consistent, (see utils.py). While this is not a production-ready financial system, it demonstrates sound relational thinking and
+consistent, (see utils.py). While this is not a production-ready financial system, it demonstrates sound relational
+thinking and
 defensive data design.
 
 ---
@@ -403,7 +439,7 @@ It also reinforced the importance of testing deployment early, not just function
 
 ---
 
-# AI Implementation & Orchestration
+# AI Implementation
 
 AI was not directly embedded into the application’s runtime logic, but it played a role during development. It was used
 primarily as a reasoning partner for debugging, refactoring, and validating architectural decisions rather than as a
@@ -423,6 +459,8 @@ cases.
 <summary></summary>
 <br>
 
+![desk light.png](static/readme/desk%20light.png)
+![desk light 2.png](static/readme/desk%20light%202.png)
 
 </details>
 
@@ -431,27 +469,45 @@ cases.
 
 ## Mobile Lighthouse Reports
 
-![Mobile Lighthouse Report]()
+<details>
+<summary></summary>
+<br>
 
+![mobile light.png](static/readme/mobile%20light.png)
+![mobile light 2.png](static/readme/mobile%20light%202.png)
 
+</details>
 
 
 ---
 
 ## HTML Validation
 
-![HTML Validation Screenshot]()
+<details>
+<summary>
+The html validation was taken from the page source of the heroku deployed site. Two main templates were used for the
+readme, but all were tested.
+Below find accounts and dashboard template links and screenshot of their validation.
+</summary>
+<br>
 
+![html accounts](view-source:https://bankey-76bdd08d1577.herokuapp.com/account/)
 
+![html 1.png](static/readme/html%201.png)
+
+![html index](view-source:https://bankey-76bdd08d1577.herokuapp.com/)
+
+![html 2.png](static/readme/html%202.png)
+</details>
 
 
 ---
 
 ## CSS Validation
 
-I was very happy to see no issues at all with the CSS! :)
+I was very happy to see no issues at all with the Cascading Style Sheets ! :)
 
-![WC3 CSS validation.png](static/readme/WC3%20CSS%20validation.png)![CSS Validation Screenshot]()
+![WC3 CSS validation.png](static/readme/WC3%20CSS%20validation.png)
 ez w
 
 
@@ -460,32 +516,173 @@ ez w
 ## Python Validation
 
 I ran all my created python files through a linter called ![Pyrfecter](erhttps://pyrfecter.com/format-python-code/), it
-basically  lints, formats, and modernizes python files to make the code positively perfect!
+basically lints, formats, and modernizes python files to make the code positively perfect! No issues, only small
+changes to lists that were one-liners.
 
 ---
 
 ## JavaScript Validation
+
+During the validation of both script.js and statement.js, a number of warnings were raised by the linting tool. These
+warnings mainly relate to ES6 syntax (e.g., const, let, arrow functions, and template literals).
+No warnings described logical, functional, or structural issues in the code.
+They were not errors, just compatibility reminders for environments older than 2015.
+
+<details>
+<summary>
+The metrics for script.js are
+</summary>
+<br>
+
+Metrics
+
+- There is only one function in this file.
+- It takes no arguments.
+- This function contains 2 statements.
+- Cyclomatic complexity number for this function is 1.
+
+</details>
+
+<details>
+<summary>
+The metrics for statement.js are
+</summary>
+<br>
+
+Metrics
+
+- There are 8 functions in this file.
+- Function with the largest signature take 1 argument, while the median is 1.
+- Largest function has 17 statements in it, while the median is 3.
+- The most complex function has a cyclomatic complexity value of 2 while the median is 1.5.
+
+- 18 warnings
+- 14    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 15    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 19    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 20    'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 22    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 23    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 25    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 26    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 27    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 28    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 29    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 33    'template literal syntax' is only available in ES6 (use 'esversion: 6').
+- 36    'arrow function syntax (=>)' is only available in ES6 (use 'esversion: 6').
+- 37    'arrow function syntax (=>)' is only available in ES6 (use 'esversion: 6').
+- 39    'arrow function syntax (=>)' is only available in ES6 (use 'esversion: 6').
+- 40    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- 49    'template literal syntax' is only available in ES6 (use 'esversion: 6').
+- 72    'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+
+</details>
+
+Given the time constraints and the stability of current functionality:
+- All features were working as intended
+- No runtime errors existed
+- Refactoring ES6 -> older syntax risked introducing regressions
+Therefore, addressing these warnings would have jeopardised the stability of the working project just before submission.
 
 ---
 
 ## Manual Testing
 
 I sent links to tutors and CS graduate friends who had a good look and gave some tips... Overall there were no
-issues with the user POV. 
+issues with the user POV. All my colleagues queried enjoyed the experience and encountered no issues.
 
 ---
 
 # Future Enhancements
 
+I will try to add a function to print the statement as a PDF soon, and change the models of different accounts and 
+card types to add interest rates, exchange fees and overdrafts.
+Hopefully at one point this can serve as an inspiration for a real banking project. It would be interesting.
+
+---
+
+# Tech stack
+
+For development:
+- Pycharm
+- Sublime text
+
+<details>
+<summary>Libs and Frameworks:</summary>
+<br>
+
+- asgiref==3.10.0
+- bleach==6.3.0
+- brotli==1.2.0
+- certifi==2025.11.12
+- cffi==2.0.0
+- charset-normalizer==3.4.4
+- cloudinary==1.36.0
+- crispy-bootstrap5==0.7
+- cryptography==46.0.3
+- cssselect2==0.8.0
+- defusedxml==0.7.1
+- dj-database-url==3.0.1
+- dj3-cloudinary-storage==0.0.6
+- Django==4.2.26
+- django-allauth==0.57.2
+- django-crispy-forms==2.5
+- django-summernote==0.8.20.0
+- fonttools==4.61.0
+- gunicorn==23.0.0
+- idna==3.11
+- oauthlib==3.3.1
+- packaging==25.0
+- pillow==12.0.0
+- psycopg2-binary==2.9.11
+- pycparser==2.23
+- pydyf==0.12.1
+- PyJWT==2.10.1
+- pyphen==0.17.2
+- python-dateutil==2.9.0.post0
+- python3-openid==3.2.0
+- requests==2.32.5
+- requests-oauthlib==2.0.0
+- six==1.17.0
+- sqlparse==0.5.3
+- tinycss2==1.5.1
+- tinyhtml5==2.0.0
+- typing_extensions==4.15.0
+- tzdata==2025.2
+- urllib3==1.26.20
+- webencodings==0.5.1
+- whitenoise==6.11.0
+- zopfli==0.4.0
+
+</details>
+
+For ideation and design:
+- Apple FreeForm for design
+- Lucid Chart for ERD and some structured planning
+- Past work also helped in layout design
+
+Deployment and database:
+- Neon DB through CI student logins for data storage
+- Heroku with student eco dynos for hosting
+
 ---
 
 # Credits
 
+**Thank you, Dillon, Mark and Tom for bringing me a big step closer to your world of Software engineering, I learn too 
+much!**
+
 - Stock photos were taken from ![Pexels](https://www.pexels.com/), a web library that stores a wide variety of
-images that are free to use for my purposes.
+  images that are free to use for my purposes.
+
 - Most of my corrections were a 70/30 of ![django manpages](https://docs.djangoproject.com/en/6.0/) and "sanity checks"
-from chatGPT, mainly to corroborate something was likely to work or written with good practices, 
-especially because my database was broken for the first week I was stuck with local hosting.
-- 
+  from chatGPT, mainly to corroborate something was likely to work or written with good practices,
+  especially because my database was broken for the first week I was stuck with local hosting.
+
+- Apart from the Django guides from ![NetNinja](https://www.youtube.com/@NetNinja/playlists) I 
+did not use any specific resource to copy or source blocks of content, code or other part for this project.  
+but a couple of videos about gradients and animating in css.  
+
+
 
 _This project is dedicated to my unfinished degree in Economics and Finance in Portugal._
